@@ -1,0 +1,4 @@
+PERM_BXPARC = Permite lançar baixas parciais no Reg de Cobrança
+PERM_LANCPARC_ACORDO = Permite lançar parcelas de acordo
+PAGOUPARC = Código da ocorrência referente a PAGAMENTO PARCIAL
+PAGOU  = Código da ocorrência referente a PAGAMENTO INTEGRAL

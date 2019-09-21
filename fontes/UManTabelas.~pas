@@ -1,0 +1,167 @@
+unit UManTabelas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Mask, Buttons, ComCtrls, DB, ADODB, Grids,
+  DBGrids;
+
+type
+  Tfrm_manTabelas = class(TForm)
+    Panel1: TPanel;
+    pn_tempo: TPanel;
+    Panel3: TPanel;
+    BitBtn2: TBitBtn;
+    PageControl1: TPageControl;
+    TabSheet3: TTabSheet;
+    Qry_Livre: TADODataSet;
+    Label4: TLabel;
+    DataSource1: TDataSource;
+    Panel2: TPanel;
+    Panel4: TPanel;
+    DBGrid1: TDBGrid;
+    sbtn_executar: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    Memo1: TMemo;
+    Label1: TLabel;
+    sb_listarBaixasParciais: TSpeedButton;
+    sb_desfazBaixa: TSpeedButton;
+    procedure BitBtn2Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure sbtn_executarClick(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
+    procedure SpeedButton9Click(Sender: TObject);
+    procedure sb_listarBaixasParciaisClick(Sender: TObject);
+    procedure sb_desfazBaixaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    tempo:integer;
+  end;
+
+var
+  frm_manTabelas: Tfrm_manTabelas;
+
+implementation
+
+uses URotinas,UDM;
+{$R *.dfm}
+
+procedure Tfrm_manTabelas.BitBtn2Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure Tfrm_manTabelas.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+
+if key = #13 then
+      begin
+         key := #0;
+         PerForm (cm_dialogKey,vk_tab,0);
+      end;
+
+end;
+
+procedure Tfrm_manTabelas.sbtn_executarClick(Sender: TObject);
+begin
+
+if pos('SELECT', uRotinas.mUppercase(Memo1.Text))>0 then
+begin
+  Qry_Livre.close;
+  Qry_Livre.CommandText := Memo1.Text;
+  Qry_Livre.open;
+  DBGrid1.Visible:=true;
+end
+else
+begin
+  DBGrid1.Visible:=false;
+  dm.DB.BeginTrans;
+  try
+      //Frotinas.GravarAuditoria('MANUTENCAO','EXECUTOU O COMANDO SQL: '+Memo1.Text,'Em: '+DateTimeToStr(now));
+      if (pos('WHERE',mUppercase(Memo1.Text))=0) and (pos('SELECT', mUppercase(Memo1.Text))>0) then
+      begin
+         showmessage('Faltou informar a clausula where');
+         dm.DB.RollbackTrans;
+         exit;
+      end;
+      frotinas.ADOCommand1.CommandText := Memo1.Text;
+      frotinas.ADOCommand1.Prepared;
+      frotinas.ADOCommand1.Execute;
+      dm.DB.CommitTrans;
+      showmessage('Setença SQL foi executada');
+  except
+      dm.DB.RollbackTrans;
+  end;
+end;
+
+end;
+
+procedure Tfrm_manTabelas.SpeedButton6Click(Sender: TObject);
+begin
+Memo1.Lines.clear;
+Memo1.Lines.add('UPDATE nomeTabela SET nomeCampo = conteudo WHERE nomeCampo = condicao ');
+end;
+
+procedure Tfrm_manTabelas.SpeedButton7Click(Sender: TObject);
+begin
+Memo1.Lines.clear;
+Memo1.Lines.add('DELETE nomeTabela WHERE nomeCampo = condicao ');
+
+end;
+
+procedure Tfrm_manTabelas.SpeedButton8Click(Sender: TObject);
+begin
+Memo1.Lines.clear;
+Memo1.Lines.add('SELECT *  FROM nomeTabela WHERE nomeCampo = condicao ');
+
+end;
+
+procedure Tfrm_manTabelas.SpeedButton9Click(Sender: TObject);
+begin
+  Qry_Livre.close;
+  Qry_Livre.CommandText := 'select * from tabelas order by tabela';
+  Qry_Livre.open;
+  DBGrid1.Visible:=true;
+end;
+
+procedure Tfrm_manTabelas.sb_listarBaixasParciaisClick(Sender: TObject);
+begin
+Memo1.Lines.clear;
+Memo1.Lines.add('select c.nome,d.nome, t.*, b.*   ');
+Memo1.Lines.add('from baixasparciais b  ');
+Memo1.Lines.add('inner join devedores d on ( d.pk_devedor=b.pk_devedor) ');
+Memo1.Lines.add('inner join clientes c on (d.pk_cliente=c.pk_cliente) ');
+Memo1.Lines.add('left join titulos t on ( t.pk_titulo=b.pk_titulo) ');
+
+Memo1.Lines.add('where d.pk_cliente = 21  ');
+
+end;
+
+procedure Tfrm_manTabelas.sb_desfazBaixaClick(Sender: TObject);
+begin
+
+  Memo1.Lines.add('update titulos set data_baixa=null, motivo_baixa=null where pk_titulo in ( ');
+  Memo1.Lines.add('select b.pk_titulo ');
+  Memo1.Lines.add('from baixasparciais b ');
+  Memo1.Lines.add('inner join devedores d on ( d.pk_devedor=b.pk_devedor) ');
+  Memo1.Lines.add('inner join clientes c on (d.pk_cliente=c.pk_cliente) ');
+  Memo1.Lines.add('left join titulos t on ( t.pk_titulo=b.pk_titulo) ');
+  Memo1.Lines.add('where d.pk_cliente = 21  ');
+
+  Memo1.Lines.add('');
+  Memo1.Lines.add('delete baixasparciais ');
+  Memo1.Lines.add('where exists( select 1 from devedores d where d.pk_devedor=baixasparciais.pk_devedor and d.pk_cliente=21)');
+
+
+
+end;
+
+end.

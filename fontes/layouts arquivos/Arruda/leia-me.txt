@@ -1,0 +1,12 @@
+Proprietário e Residente
+
+apaga as linhas de cabeçalho e deixa apartir da linha que começa com a palavra "Unidade"
+
+apaga última linha com o total
+
+
+o arquivo de dívida;
+
+1- deve apagar linhas de cabeçalho
+2- deve apagar linha embranco entre o proprietario e a divida
+3- deve apagar a última linha de totalização

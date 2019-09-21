@@ -1,0 +1,21 @@
+/*
+   quinta-feira, 16 de junho de 2016 11:33:18
+   User: 
+   Server: MANUEL-BERW7CX2\SERVIDOR
+   Database: COBRANCA
+   Application: MS SQLEM - Data Tools
+*/
+
+ocorrencias
+LICENCA
+LICENCAS_CLIENTE
+janelas
+janelas_palavras
+gruposusu
+arq_importados
+usuarios
+clientes
+Devedores
+Eventos
+Titulos
+baixasparciais

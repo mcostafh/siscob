@@ -1,0 +1,8 @@
+    Senhas de Renovação para o Mês
+                                                                             28/1/2012 14:20:08
+    Data para renovação
+    Cliente               CNPJ          Serial 1                          Serial 2
+    DRP                    11111222222  XGTPH                             DBDBXGC
+     Validad3/3/2012
+    Recupere               00000000001  D                                 DBDBXGC
+     Validad3/3/2012

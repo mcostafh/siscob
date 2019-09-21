@@ -1,0 +1,2 @@
+select * from devedores where pk_cliente=86
+update devedores set cgc_cpf= substring(cgc_cpf,4,11) where pk_devedor=101112

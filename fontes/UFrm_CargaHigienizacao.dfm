@@ -1,0 +1,607 @@
+object Frm_CargaHigienizacao: TFrm_CargaHigienizacao
+  Left = 135
+  Top = 8
+  Width = 984
+  Height = 643
+  Caption = 'Carga de Higieniza'#231#227'o'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  Visible = True
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel2: TPanel
+    Left = 0
+    Top = 41
+    Width = 845
+    Height = 575
+    Align = alLeft
+    BevelOuter = bvNone
+    Color = clInfoBk
+    TabOrder = 1
+    object Gauge_atualizando: TGauge
+      Left = 696
+      Top = 117
+      Width = 108
+      Height = 22
+      Progress = 0
+      Visible = False
+    end
+    object Label1: TLabel
+      Left = 8
+      Top = 8
+      Width = 35
+      Height = 13
+      Caption = 'Cliente:'
+    end
+    object lb_mens: TLabel
+      Left = 328
+      Top = 248
+      Width = 145
+      Height = 13
+      AutoSize = False
+    end
+    object sb_gravarConf: TSpeedButton
+      Left = 696
+      Top = 53
+      Width = 107
+      Height = 36
+      Hint = 'Carrega dados da Agenda Di'#225'ria'
+      Caption = 'Executar'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      Glyph.Data = {
+        76010000424D7601000000000000760000002800000020000000100000000100
+        04000000000000010000120B0000120B00001000000000000000000000000000
+        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00555555555555
+        5555555555555555555555555555555555555555555555555555555555555555
+        55555555FFFFFFFFFF5555500000000005555557777777777F55550BFBFBFBFB
+        0555557F555555557F55550FBFBFBFBF0555557F555555557F55550BFBFBFBFB
+        0555557F555555557F55550FBFBFBFBF0555557F555555557F55550BFBFBFBFB
+        0555557F555555557F55550FBFBFBFBF0555557FFFFFFFFF7555550000000000
+        555555777777777755555550FBFB0555555555575FFF75555555555700007555
+        5555555577775555555555555555555555555555555555555555555555555555
+        5555555555555555555555555555555555555555555555555555}
+      NumGlyphs = 2
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = sb_gravarConfClick
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 726
+      Top = 539
+      Width = 74
+      Height = 21
+      Hint = 'Imprime erros'
+      Caption = 'Imprimir'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      Glyph.Data = {
+        76010000424D7601000000000000760000002800000020000000100000000100
+        0400000000000001000000000000000000001000000000000000000000000000
+        8000008000000080800080000000800080008080000080808000C0C0C0000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00300000000000
+        00033FFFFFFFFFFFFFFF0888888888888880777777777777777F088888888888
+        8880777777777777777F0000000000000000FFFFFFFFFFFFFFFF0F8F8F8F8F8F
+        8F80777777777777777F08F8F8F8F8F8F9F0777777777777777F0F8F8F8F8F8F
+        8F807777777777777F7F0000000000000000777777777777777F3330FFFFFFFF
+        03333337F3FFFF3F7F333330F0000F0F03333337F77773737F333330FFFFFFFF
+        03333337F3FF3FFF7F333330F00F000003333337F773777773333330FFFF0FF0
+        33333337F3FF7F3733333330F08F0F0333333337F7737F7333333330FFFF0033
+        33333337FFFF7733333333300000033333333337777773333333}
+      NumGlyphs = 2
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = SpeedButton2Click
+    end
+    object lb_status: TLabel
+      Left = 696
+      Top = 96
+      Width = 113
+      Height = 13
+      AutoSize = False
+    end
+    object gb_enviar: TGroupBox
+      Left = 8
+      Top = 27
+      Width = 681
+      Height = 120
+      Caption = 'Arquivos'
+      TabOrder = 0
+      object sb_PesquisarArquivos: TSpeedButton
+        Left = 349
+        Top = 14
+        Width = 22
+        Height = 24
+        Hint = 'Pesquisar arquivo'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          04000000000000010000130B0000130B00001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+          33033333333333333F7F3333333333333000333333333333F777333333333333
+          000333333333333F777333333333333000333333333333F77733333333333300
+          033333333FFF3F777333333700073B703333333F7773F77733333307777700B3
+          33333377333777733333307F8F8F7033333337F333F337F3333377F8F9F8F773
+          3333373337F3373F3333078F898F870333337F33F7FFF37F333307F99999F703
+          33337F377777337F3333078F898F8703333373F337F33373333377F8F9F8F773
+          333337F3373337F33333307F8F8F70333333373FF333F7333333330777770333
+          333333773FF77333333333370007333333333333777333333333}
+        NumGlyphs = 2
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = sb_PesquisarArquivosClick
+      end
+      object DBEdit1: TDBEdit
+        Left = 8
+        Top = 17
+        Width = 337
+        Height = 21
+        DataField = 'nomeArquivoEnviar'
+        TabOrder = 0
+      end
+      object memo_arquivos: TMemo
+        Left = 9
+        Top = 40
+        Width = 664
+        Height = 73
+        ScrollBars = ssVertical
+        TabOrder = 1
+      end
+    end
+    object Memo1: TMemo
+      Left = 2
+      Top = 152
+      Width = 810
+      Height = 385
+      ScrollBars = ssVertical
+      TabOrder = 1
+    end
+    object lk_cliente: TRxDBLookupCombo
+      Left = 48
+      Top = 5
+      Width = 329
+      Height = 21
+      DropDownCount = 20
+      LookupField = 'pk_cliente'
+      LookupDisplay = 'nome'
+      LookupDisplayIndex = 5
+      LookupSource = Dts_cliente
+      TabOrder = 2
+    end
+    object cb_gravar: TCheckBox
+      Left = 697
+      Top = 30
+      Width = 76
+      Height = 17
+      Caption = 'Gravar'
+      TabOrder = 3
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 976
+    Height = 41
+    Align = alTop
+    BevelOuter = bvLowered
+    Caption = 'Carga dos arquivos'
+    Color = 4210688
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Arial Black'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    object SpeedButton1: TSpeedButton
+      Left = 690
+      Top = 5
+      Width = 107
+      Height = 32
+      Hint = 'Esconde a tela'
+      Caption = '&Fechar e Sair'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      Glyph.Data = {
+        76010000424D7601000000000000760000002800000020000000100000000100
+        04000000000000010000120B0000120B00001000000000000000000000000000
+        800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00330000000000
+        03333377777777777F333301BBBBBBBB033333773F3333337F3333011BBBBBBB
+        0333337F73F333337F33330111BBBBBB0333337F373F33337F333301110BBBBB
+        0333337F337F33337F333301110BBBBB0333337F337F33337F333301110BBBBB
+        0333337F337F33337F333301110BBBBB0333337F337F33337F333301110BBBBB
+        0333337F337F33337F333301110BBBBB0333337F337FF3337F33330111B0BBBB
+        0333337F337733337F333301110BBBBB0333337F337F33337F333301110BBBBB
+        0333337F3F7F33337F333301E10BBBBB0333337F7F7F33337F333301EE0BBBBB
+        0333337F777FFFFF7F3333000000000003333377777777777333}
+      NumGlyphs = 2
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = SpeedButton1Click
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Ctl3D = False
+    Left = 732
+    Top = 125
+  end
+  object tb_cliente: TADOTable
+    Connection = DM.DB
+    CursorType = ctStatic
+    TableName = 'clientes'
+    Left = 384
+    Top = 8
+    object tb_clientepk_cliente: TIntegerField
+      FieldName = 'pk_cliente'
+    end
+    object tb_clientenome: TStringField
+      FieldName = 'nome'
+      Size = 50
+    end
+    object tb_clienteperc_juros_mes: TBCDField
+      FieldName = 'perc_juros_mes'
+      Precision = 18
+      Size = 0
+    end
+    object tb_clienteperc_multa: TBCDField
+      FieldName = 'perc_multa'
+      Precision = 18
+      Size = 0
+    end
+    object tb_clientecnpj: TStringField
+      FieldName = 'cnpj'
+    end
+    object tb_clientelayout_Inteq: TStringField
+      FieldName = 'layout_Inteq'
+      Size = 1
+    end
+    object tb_clientebaixaTit_Carga: TStringField
+      FieldName = 'baixaTit_Carga'
+      Size = 1
+    end
+  end
+  object Dts_cliente: TDataSource
+    DataSet = tb_cliente
+    Left = 416
+    Top = 8
+  end
+  object tb_assessoria: TADOTable
+    Connection = DM.DB
+    CursorType = ctStatic
+    TableName = 'Assessoria'
+    Left = 352
+    Top = 8
+  end
+  object qry_seqArq: TADOQuery
+    Connection = DM.DB
+    Parameters = <
+      item
+        Name = 'seq'
+        Attributes = [paSigned, paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'seq'
+        Attributes = [paSigned, paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select count(1) as qtde'
+      'from devedores'
+      'where seq_arq_baixa=:seq or seq_arq_inclusao=:seq')
+    Left = 8
+    Top = 8
+  end
+  object qry_devedor: TADOQuery
+    Connection = DM.DB
+    Parameters = <
+      item
+        Name = 'cpf'
+        Attributes = [paNullable]
+        DataType = ftString
+        NumericScale = 255
+        Precision = 255
+        Size = 50
+        Value = Null
+      end
+      item
+        Name = 'cliente'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select *'
+      'from devedores'
+      'where cgc_cpf=:cpf and pk_cliente=:cliente')
+    Left = 56
+    Top = 8
+  end
+  object tabelas: TADOTable
+    Connection = DM.DB
+    TableName = 'tabela'
+    Left = 104
+    Top = 8
+  end
+  object telefones: TADODataSet
+    Connection = DM.DB
+    CursorType = ctStatic
+    CommandText = 'select * from telefones where pk_devedor=:devedor'
+    Parameters = <
+      item
+        Name = 'devedor'
+        Attributes = [paSigned, paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    Left = 416
+    Top = 49
+    object telefonesid: TIntegerField
+      FieldName = 'id'
+    end
+    object telefonespk_devedor: TIntegerField
+      FieldName = 'pk_devedor'
+    end
+    object telefonestipo_fone: TStringField
+      FieldName = 'tipo_fone'
+      Size = 15
+    end
+    object telefonesTelefone: TStringField
+      FieldName = 'Telefone'
+      Size = 40
+    end
+    object telefonessms: TStringField
+      FieldName = 'sms'
+      Size = 1
+    end
+    object telefonesDDD: TStringField
+      FieldName = 'DDD'
+      Size = 3
+    end
+  end
+  object qry_evento: TADODataSet
+    Connection = DM.DB
+    CommandText = 'select *'#13#10'from EVENTOS'#13#10'where 1=2'
+    Parameters = <>
+    Left = 24
+    Top = 272
+    object qry_eventochave: TIntegerField
+      FieldName = 'chave'
+    end
+    object qry_eventopk_devedor: TIntegerField
+      FieldName = 'pk_devedor'
+    end
+    object qry_eventoData: TDateTimeField
+      FieldName = 'Data'
+    end
+    object qry_eventoHora: TStringField
+      FieldName = 'Hora'
+      Size = 10
+    end
+    object qry_eventoTexto: TStringField
+      FieldName = 'Texto'
+      Size = 250
+    end
+    object qry_eventomotivo: TIntegerField
+      FieldName = 'motivo'
+    end
+    object qry_eventoAgendado_Data: TDateTimeField
+      FieldName = 'Agendado_Data'
+    end
+    object qry_eventoAgendado_Tipo: TIntegerField
+      FieldName = 'Agendado_Tipo'
+    end
+    object qry_eventoAgendado_Hora: TStringField
+      FieldName = 'Agendado_Hora'
+      Size = 50
+    end
+    object qry_eventoagendado_cobrador: TIntegerField
+      FieldName = 'agendado_cobrador'
+    end
+    object qry_eventomarcar_nao_localiz: TStringField
+      FieldName = 'marcar_nao_localiz'
+      Size = 1
+    end
+    object qry_eventoseq_arq_inclusao: TIntegerField
+      FieldName = 'seq_arq_inclusao'
+    end
+    object qry_eventopk_cliente: TIntegerField
+      FieldName = 'pk_cliente'
+    end
+  end
+  object recibos: TADODataSet
+    Connection = DM.DB
+    CursorType = ctStatic
+    CommandText = 
+      'select * from recibos where pk_devedor=:devedor order by data de' +
+      'sc'
+    Parameters = <
+      item
+        Name = 'devedor'
+        Attributes = [paSigned, paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    Left = 82
+    Top = 276
+    object recibospk_recibo: TIntegerField
+      FieldName = 'pk_recibo'
+    end
+    object recibospk_devedor: TIntegerField
+      FieldName = 'pk_devedor'
+    end
+    object recibosdata: TDateTimeField
+      FieldName = 'data'
+    end
+    object reciboshora: TStringField
+      FieldName = 'hora'
+      Size = 10
+    end
+    object recibostipo: TIntegerField
+      FieldName = 'tipo'
+    end
+    object recibospk_cliente: TIntegerField
+      FieldName = 'pk_cliente'
+    end
+    object recibosusuario_cobrador: TIntegerField
+      FieldName = 'usuario_cobrador'
+    end
+    object recibosprincipal: TBCDField
+      FieldName = 'principal'
+      Precision = 18
+      Size = 0
+    end
+    object recibosjuros: TBCDField
+      FieldName = 'juros'
+      Precision = 18
+      Size = 0
+    end
+    object recibosmulta: TBCDField
+      FieldName = 'multa'
+      Precision = 18
+      Size = 0
+    end
+    object recibosdesc_principal: TBCDField
+      FieldName = 'desc_principal'
+      Precision = 18
+      Size = 0
+    end
+    object recibosdesc_juros: TBCDField
+      FieldName = 'desc_juros'
+      Precision = 18
+      Size = 0
+    end
+    object recibosdesc_multa: TBCDField
+      FieldName = 'desc_multa'
+      Precision = 18
+      Size = 0
+    end
+    object recibosacres_protesto: TBCDField
+      FieldName = 'acres_protesto'
+      Precision = 18
+      Size = 0
+    end
+    object recibosacres_honorarios: TBCDField
+      FieldName = 'acres_honorarios'
+      Precision = 18
+      Size = 0
+    end
+    object recibosvalor_liquido: TBCDField
+      FieldName = 'valor_liquido'
+      Precision = 18
+      Size = 0
+    end
+    object recibostaxa_retenc: TBCDField
+      FieldName = 'taxa_retenc'
+      Precision = 18
+      Size = 0
+    end
+    object recibosvalor_retenc: TBCDField
+      FieldName = 'valor_retenc'
+      Precision = 18
+      Size = 0
+    end
+    object recibosdata_receb: TDateTimeField
+      FieldName = 'data_receb'
+    end
+    object reciboshora_receb: TStringField
+      FieldName = 'hora_receb'
+      Size = 10
+    end
+    object recibosusuario_receb: TIntegerField
+      FieldName = 'usuario_receb'
+    end
+    object recibosdata_canc: TDateTimeField
+      FieldName = 'data_canc'
+    end
+    object reciboshora_canc: TStringField
+      FieldName = 'hora_canc'
+      Size = 10
+    end
+    object recibosusuario_canc: TIntegerField
+      FieldName = 'usuario_canc'
+    end
+    object recibosobservacao: TStringField
+      FieldName = 'observacao'
+      Size = 200
+    end
+    object recibosdata_venc: TDateTimeField
+      FieldName = 'data_venc'
+    end
+  end
+  object seq_tabelas: TADODataSet
+    Connection = DM.DB
+    CommandText = 'select *'#13#10'from TABELA'#13#10'where tabela=:tab'
+    Parameters = <
+      item
+        Name = 'tab'
+        Attributes = [paNullable]
+        DataType = ftString
+        NumericScale = 255
+        Precision = 255
+        Size = 15
+        Value = Null
+      end>
+    Left = 120
+    Top = 272
+    object seq_tabelastabela: TStringField
+      FieldName = 'tabela'
+      Size = 15
+    end
+    object seq_tabelasseq: TIntegerField
+      FieldName = 'seq'
+    end
+  end
+  object qry_arqimportado: TADODataSet
+    Connection = DM.DB
+    CommandText = 'select * from arq_importados where 1=2'
+    Parameters = <>
+    Left = 160
+    Top = 281
+  end
+end

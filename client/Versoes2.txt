@@ -1,0 +1,269 @@
+,-----------------------------------------------------.
+| DEFINIÇÃO DOS PARÂMETROS PARA A ESTAÇÃO DE TRABALHO |
+`-----------------------------------------------------'
+[PARAMETROS]
+PASSWORD=
+
+
+
+
+,-----------------------------------------------------.
+|      DEFINIÇÃO DE ALTERAÇÕES NO BANCO DE DADOS      |
+`-----------------------------------------------------'
+[HEADER]
+VERSOES=23102009a;26102009;26102009b;3110009;03112009;05112009;08112009;09112009;15112009;17112009;25112009;22122009;22122009a;23012010;12022010;22022010;24022010;24022010a;26022010;06032010;18032010;18032010a;16042010;16042010a;20042010;22042010;30072010;29082010;18112010;17042011;
+VERSOES2=21042011;21042011b;29072011;29072011A;03082011;06092011a;06092011b;10102011;
+
+,---------------------------------------------------------------------.
+[10102011]
+ALTER=
+CREATE=tb_config;
+[10102011_CREATE_tb_config]
+DESCRICAO=CONFIGURAÇÕES 
+CAMPOS=PK_ORDEM DECIMAL(18,0) NOT NULL;CLIENTE DECIMAL(18,0) NOT NULL;NOME VARCHAR(30);FORMATO_DT VARCHAR(20);CALC_JUROS_CARTAO VARCHAR(10);OCOR_PAGOU DECIMAL(18,0);OCOR_PAGOU_PARC DECIMAL(18,0);EMAIL_NOME VARCHAR(30);EMAIL_CONTA VARCHAR(60);EMAIL_SENHA VARCHAR(20);EMAIL_SMTP VARCHAR(60);EMAIL_SMTP_PORTA VARCHAR(3);EMAIL_REQUER_AUT VARCHAR(1);EMAIL_ASSUNTO VARCHAR(200);EMAIL_TITULO VARCHAR(200);EMAIL_RODAPE VARCHAR(200);
+PRIMARYKEY=PK_ORDEM
+
+,---------------------------------------------------------------------.
+[06092011b]
+ALTER=
+CREATE=LICENCAS_CLIENTE;
+[06092011b_CREATE_LICENCAS_CLIENTE]
+DESCRICAO=LICENÇAS DOS CLIENTES
+CAMPOS=PK_ORDEM DECIMAL(18,0) NOT NULL;NOME VARCHAR(40);CNPJ_CPF VARCHAR(20);chaveLicenca varchar(20);SERIAL1 VARCHAR(100);SERIAL2 VARCHAR(100);VALIDADE DATETIME;RENOVACAO DATETIME;
+PRIMARYKEY=PK_ORDEM
+
+
+,---------------------------------------------------------------------.
+[06092011a]
+ALTER=
+CREATE=LICENCA;
+[06092011a_CREATE_LICENCA]
+DESCRICAO=LICENCIAMeNTO DO SISTEMA
+CAMPOS=PK_ORDEM DECIMAL(18,0) NOT NULL;NOME VARCHAR(40);CNPJ_CPF VARCHAR(20);chaveLicenca varchar(20); 
+PRIMARYKEY=PK_ORDEM
+
+
+,--------------------------------------------------------------------------------------.
+[03082011]
+SQL=delete from tabela where tabela='data';
+;
+`--------------------------------------------------------------------------------------'
+
+,--------------------------------------------------------------------------------------.
+[29072011A]
+SQL=delete from tabela where tabela='data';
+;
+`--------------------------------------------------------------------------------------'
+
+
+,--------------------------------------------------------------------------------------.
+[29072011]
+SQL=delete from tabela where tabela='data';
+;
+`--------------------------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[21042011]
+ALTER=clientes;
+[21042011_Clientes]
+CAMPOS=favorecido=favorecido1 varchar(40);favorecido2 varchar(40);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[21042011b]
+ALTER=clientes;
+[21042011b_Clientes]
+CAMPOS=inativado=inativado datetime;
+`---------------------------------------------------------------------'
+
+
+
+
+,---------------------------------------------------------------------.
+[17042011]
+ALTER=clientes;
+[17042011_Clientes]
+CAMPOS=inativado datetime;
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[18112010]
+ALTER=clientes;
+[18112010_Clientes]
+CAMPOS=favorecido varchar(30);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[29082010]
+ALTER=clientes;
+[29082010_Clientes]
+CAMPOS=banco1 varchar(10);agencia1 varchar(6);conta1 varchar(10);banco2 varchar(10);agencia2 varchar(6);conta2 varchar(10);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[30072010]
+ALTER=clientes;
+[30072010_Clientes]
+CAMPOS=TIPO_LOGRADOURO Varchar(10);LOGRADOURO VARCHAR(50);NUMERO VARCHAR(10);COMPLEMENTO VARCHAR(30);BAIRRO VARCHAR(30);CIDADE VARCHAR(30);CEP VARCHAR(10);UF VARCHAR(50);PONTO_REF VARCHAR(30);TELEFONE VARCHAR(30);FAX VARCHAR(20);ZERO_OITOCENTOS VARCHAR(15);EMAIL VARCHAR(60);SKYPE VARCHAR(40);MSN VARCHAR(60);RESP_COBRANÇA VARCHAR(60);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[22042010]
+ALTER=prestcontas;
+[22042010_prestcontas]
+CAMPOS=baixaparcial DECIMAL(18,2);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[20042010]
+ALTER=recibos;
+[20042010_recibos]
+CAMPOS=acordo integer;
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[16042010a]
+ALTER=recibos;
+[16042010a_recibos]
+CAMPOS=baixaparcial DECIMAL(18,2);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[16042010]
+ALTER=
+CREATE=baixasparciais;
+[16042010_CREATE_baixasparciais]
+DESCRICAO=Baixas parciais
+CAMPOS=PK_bxparcial integer;data datetime;valor decimal(18,2);pk_devedor integer;acordo integer;historico varchar(60);pk_prestcontas integer;valor_retenc decimal(18,2);taxa_retenc decimal(18,2);
+PRIMARYKEY=PK_bxparcial
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[18032010]
+ALTER=
+CREATE=PARAM;
+[18032010_CREATE_PARAM]
+DESCRICAO=Parâmetros do sistema
+CAMPOS=PK_PARAM integer;NOME_PARAM VARCHAR(10);DESCR_PARAM VARCHAR(30);VALOR_PARAM VARCHAR(20);
+PRIMARYKEY=PK_PARAM
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[18032010a]
+ALTER=clientes;
+[18032010a_clientes]
+CAMPOS=layout_Inteq varchar(1);baixaTit_Carga varchar(1);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[06032010]
+ALTER=jobs;
+[06032010_jobs]
+CAMPOS=categoria=categoria varchar(2);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[26022010]
+ALTER=usuarios;
+[26022010_usuarios]
+CAMPOS=logado varchar(1);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[24022010a]
+ALTER=prestcontas;
+[24022010a_prestcontas]
+CAMPOS=faixa integer;descricao varchar(15);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[24022010]
+ALTER=jobs;
+[24022010_jobs]
+CAMPOS=dec_7 DECIMAL(18,2); dec_8 DECIMAL(18,2); dec_9 DECIMAL(18,2); dec_10 DECIMAL(18,2);dec_11 DECIMAL(18,2); dec_12 DECIMAL(18,2);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[22022010]
+ALTER=jobs;
+[22022010_jobs]
+CAMPOS=dec_1 DECIMAL(18,2); dec_2 DECIMAL(18,2); dec_3 DECIMAL(18,2); dec_4 DECIMAL(18,2);dec_5 DECIMAL(18,2); dec_6 DECIMAL(18,2);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[12022010]
+ALTER=titulos;
+[12022010_titulos]
+CAMPOS=desc_principal DECIMAL(18,2); desc_juros DECIMAL(18,2); desc_multa DECIMAL(18,2); acres_protesto DECIMAL(18,2); acres_honorarios DECIMAL(18,2); valor_retenc DECIMAL(18,2); valor_liquido DECIMAL(18,2);
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[23012010]
+ALTER=assessoria;
+[23012010_assessoria]
+CAMPOS=faixa_permitida integer;
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[22122009]
+ALTER=eventos;
+[22122009_eventos]
+CAMPOS=pk_cobrador integer;pk_cliente integer;
+`---------------------------------------------------------------------'
+
+,--------------------------------------------------------------------------------------.
+[22122009a]
+SQL=CREATE INDEX IX_Eventos_Cobrador ON eventos (pk_cobrador, data);
+;
+`--------------------------------------------------------------------------------------'
+
+
+
+,---------------------------------------------------------------------.
+[25112009]
+ALTER=arq_importados;
+[25112009_arq_importados]
+CAMPOS=data_importado DateTime;
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[17112009]
+ALTER=arq_importados;
+[17112009_arq_importados]
+CAMPOS=pk_cliente integer;
+`---------------------------------------------------------------------'
+
+,---------------------------------------------------------------------.
+[15112009]
+ALTER=devedores;
+[15112009_devedores]
+CAMPOS=anotacoes varchar(2000);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[09112009]
+ALTER=janelas;
+[09112009_janelas]
+CAMPOS=opcao_menu_princ varchar(1);
+`---------------------------------------------------------------------'
+
+
+,---------------------------------------------------------------------.
+[08112009]
+ALTER=janelas_palavras;
+[08112009_janelas_palavras]
+CAMPOS=palavra=palavra varchar(100);
+`---------------------------------------------------------------------'
+[BMPS]
+SYS007=C
+SYS006=CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC

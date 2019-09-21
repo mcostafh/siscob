@@ -1,0 +1,49 @@
+
+   Declare @select varchar(2000)
+   Declare @from varchar(250)
+   Declare @join varchar(250)
+   Declare @where varchar(2000)
+   Declare @dt1 Datetime
+   Declare @dt2 Datetime
+   Declare @hj Date
+   Declare @continue char(1)
+
+
+   Declare @fx1_de int
+   Declare @fx1_ate int
+   Declare @fx2_de int
+   Declare @fx2_ate int
+   Declare @fx3_de int
+   Declare @fx3_ate int
+
+
+   Declare @pk_devedor int
+   Declare @valor_titulo Decimal(14,2)
+   Declare @vencimento Date
+   Declare @motivo_dialogo int
+   Declare @tipo_motivo varchar(60)
+   Declare @tipo_titulo varchar(3)
+   Declare @cliente int
+
+   Declare @find_pkdevedor int
+	
+	set @hj = GETDATE()
+
+	set @fx3_ate = 480
+	set @fx1_de = 1
+
+    set @dt1 = DATEADD(day,  @fx3_ate *(-1), @hj) 
+	set @dt2 = DATEADD(day,  @fx1_de*(-1), @hj) 
+
+	set @cliente = 82
+
+		select t.pk_devedor, t.vencimento, t.valor_titulo, t.tipo_titulo, (select d.motivo_dialogo from devedores d where d.pk_devedor=t.pk_devedor) as motivo_dialogo 
+		from titulos t 
+		inner join Devedores d on ( t.pk_devedor=d.pk_devedor)
+		where (t.motivo_baixa is null or t.motivo_baixa ='') 
+			and t.vencimento >=@dt1
+			and t.vencimento <=@dt2
+			and d.pk_cliente = @cliente
+			and d.motivo_dialogo=0
+	
+	

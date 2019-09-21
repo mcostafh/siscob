@@ -1,0 +1,43 @@
+unit UCadFaixas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UCadPadrao, DBTables, DB, ADODB, ComCtrls, RXCtrls, ExtCtrls,
+  SpeedBar, StdCtrls, Mask, DBCtrls, Grids, DBGrids, ToolEdit, RXDBCtrl;
+
+type
+  TFrm_cadMotivosSPC = class(TFrm_PadCad)
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Query1PK_MOTIVO: TBCDField;
+    Query1CODIGO: TStringField;
+    Query1NOME: TStringField;
+    procedure Query1BeforePost(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_cadMotivosSPC: TFrm_cadMotivosSPC;
+
+implementation
+
+uses URotinas;
+
+{$R *.dfm}
+
+procedure TFrm_cadMotivosSPC.Query1BeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  Query1pk_faixa.Value := frotinas.sequencial('faixas');
+
+end;
+
+end.

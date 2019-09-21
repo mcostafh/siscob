@@ -1,0 +1,452 @@
+unit Ufrm_relPrestContas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Mask, ToolEdit, RxLookup, DB, ADODB, Buttons,
+  jpeg;
+
+type
+  Tfrm_RelPrestContas = class(TForm)
+    Panel1: TPanel;
+    GroupBox2: TGroupBox;
+    edt_prestacoes: TEdit;
+    Label3: TLabel;
+    GroupBox3: TGroupBox;
+    Dts_cliente: TDataSource;
+    DataSource1: TDataSource;
+    dts_clientes: TDataSource;
+    lk_cliente: TRxDBLookupCombo;
+    Panel2: TPanel;
+    btn_imprimir: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    lb_mens: TLabel;
+    usuarios: TADOTable;
+    dts_usuarios: TDataSource;
+    Label4: TLabel;
+    cb_cobrador: TRxDBLookupCombo;
+    Image1: TImage;
+    Label14: TLabel;
+    taxas: TADODataSet;
+    taxaspk_cliente: TIntegerField;
+    taxaspk_faixa: TIntegerField;
+    taxascodigo: TStringField;
+    taxasfaixa1: TIntegerField;
+    taxasfaixa2: TIntegerField;
+    taxasperc_desc_juros: TBCDField;
+    taxasperc_desc_multa: TBCDField;
+    taxasperc_desc_princ: TBCDField;
+    taxasperc_ret: TBCDField;
+    taxasforma_ret: TStringField;
+    qry_bxparcial: TADOQuery;
+    tb_clientes: TADOQuery;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure btn_imprimirClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_RelPrestContas: Tfrm_RelPrestContas;
+
+implementation
+
+uses udm, Uqr_pcontas, urotinas;
+
+{$R *.dfm}
+
+procedure Tfrm_RelPrestContas.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+   action:=Cafree;
+
+end;
+
+procedure Tfrm_RelPrestContas.FormShow(Sender: TObject);
+begin
+tb_clientes.Open;
+usuarios.open;
+end;
+
+procedure Tfrm_RelPrestContas.SpeedButton2Click(Sender: TObject);
+begin
+close;
+
+end;
+
+procedure Tfrm_RelPrestContas.btn_imprimirClick(Sender: TObject);
+var select,from,join,where,select2,from2,join2,where2, descr, order:string;
+var tprinc, tjuros,thonorario, tmulta, tdescprinc,tdescjuros,tdescmulta,thonor, tprotesto,tretenc, trepasse,tbxParcial, liquido, tliquido,tVrTxAdm, tVrTxBancaria,tVrTxSegVia, tDescTxAdm,tacrescimo,tDescTxBancaria:real;
+var job,atraso,chave : integer;
+var hj:tdatetime;
+begin
+
+  thonorario:=0.00;
+  tacrescimo:=0.0;
+  tprinc := 0.00;
+  tjuros := 0.00;
+  tmulta := 0.00;
+  thonorario:=0.00 ;
+  tdescprinc := 0.00;
+  tdescjuros := 0.00;
+  tdescmulta := 0.00;
+  thonor     := 0.00;
+  tprotesto  := 0.00;
+  tretenc    := 0.00;
+  trepasse   := 0.00;
+  tVrTxAdm:=0;
+  tVrTxBancaria:=0;
+  tVrTxSegVia:=0;
+  tDescTxAdm:=0;
+  tDescTxBancaria:=0;
+  tbxParcial := 0;
+
+  select := '';
+  from   := '';
+  join   := '';
+  where  := '';
+
+  if lk_cliente.KeyValue = null then
+  begin
+    showmessage('Informe um cliente.');
+    exit;
+  end;
+
+  select := ' select p.data,r.principal,r.juros, r.multa, r.desc_juros,r.desc_multa,r.desc_principal,r.valor_retenc, ';
+  select := select + 'r.acres_protesto , r.acrescimo,';
+  select := select + '(select min(t.vencimento) as vencimento from titulos t where t.pk_recibo=r.pk_recibo)  as vencimento ';
+  select := select + ' , 0 as taxa_retenc, r.dias_atraso as atraso, r.VrTxAdm, r.VrTxBancaria,r.VrTxSegVia, ';
+  select := select + ' r.DescTxAdm,r.DescTxBancaria, r.valor_liquido, r.baixaparcial, r.acres_honorarios as honorario ';
+
+  from   := ' from recibos r   ';
+  join   := ' inner join prestcontas p on (p.pk_prestcontas=r.pk_prestcontas) ';
+  where  := ' where p.pk_cliente = '+inttostr(lk_cliente.KeyValue);
+
+
+  select2 := ' select p.data, b.valor as principal, 0 as juros, 0 as multa, 0 as desc_juros, 0 as desc_multa, 0 as desc_principal,b.valor_retenc, 0 as acres_protesto,0.00 as acrescimo, 0.00 as baixaparcial, 0.00 as honorario,';
+  select2 := select2 + '(select min(t.vencimento) as vencimento from titulos t where t.pk_devedor=b.pk_devedor ) as vencimento, b.taxa_retenc, b.atraso, 0 as VrTxAdm, 0 as VrTxBancaria,0 as VrTxSegVia, 0 as DescTxAdm,0 as DescTxBancaria , b.valor  as valor_liquido';
+  from2   := ' from baixasparciais b   ';
+  join2   := ' inner join prestcontas p on (p.pk_prestcontas=b.pk_prestcontas) ';
+  where2  := ' where p.pk_cliente = '+inttostr(lk_cliente.KeyValue);
+
+  where := where + ' and p.pk_prestcontas in ('+edt_prestacoes.Text+')';
+  where2:= where2 + ' and b.pk_prestcontas in ('+edt_prestacoes.Text+')';
+
+  if cb_cobrador.KeyValue >0 then
+  begin
+    where := where + ' and exists( select 1 from devedores d where d.pk_devedor=r.pk_devedor and d.pk_cobrador = '+intToStr(cb_cobrador.KeyValue)+') ';
+    where2:= where2+ ' and exists( select 1 from devedores d where d.pk_devedor=b.pk_devedor and d.pk_cobrador = '+intToStr(cb_cobrador.KeyValue)+') ';
+  end;
+
+  lb_mens.caption := 'Impressão em andamento! Aguarde um momento...';
+  lb_mens.Visible := true;
+
+  qry_bxparcial.close;
+  qry_bxparcial.SQL.Text := 'select * from baixasparciais where 1=2';
+
+  urotinas.log('Rel. Prestação (bxparciais): '+qry_bxparcial.SQL.Text);
+
+  frotinas.Qry_Livre.close;
+  frotinas.Qry_Livre.CommandText := select + from + join + where; // + ' union '+ select2 + from2 + join2 + where2;
+  urotinas.log('Rel. Prestação (recibos): '+qry_bxparcial.SQL.Text);
+  frotinas.Qry_Livre.open;
+
+  qry_bxparcial.SQL.text := select2 + from2 + join2 + where2;
+  qry_bxparcial.open;
+
+  job := frotinas.Sequencial('jobs');
+  frotinas.qry_livre2.close;
+  frotinas.qry_livre2.CommandText := 'select * from jobs where job='+intTostr(job);
+  frotinas.qry_livre2.open;
+
+  taxas.Parameters.ParamByName('cliente').value := lk_cliente.KeyValue;
+  taxas.open;
+
+
+  hj := date;
+
+
+  //
+  // Baixas totais por recibos
+  //
+  frotinas.Qry_Livre.first();
+  while not frotinas.Qry_Livre.eof do
+  begin
+
+
+    if frotinas.Qry_Livre.fieldByName('vencimento').value = null then
+      atraso := 0
+    else
+      atraso := frotinas.Qry_Livre.fieldByName('data').value - frotinas.Qry_Livre.fieldByName('vencimento').value;
+
+    taxas.first;
+
+    chave := -1;
+    if (atraso >= taxasfaixa1.asfloat) and (atraso <= taxasfaixa2.asfloat) then
+      chave := taxaspk_faixa.value
+    else
+    begin
+      while (not taxas.eof) and (chave<>null) do
+      begin
+        if (atraso >= taxasfaixa1.asfloat) and (atraso <= taxasfaixa2.asfloat) then
+          chave := taxaspk_faixa.value;
+        taxas.next;
+      end;
+    end;
+
+    if not frotinas.qry_livre2.Locate('chave',chave,[]) then
+    begin
+      if taxas.Locate('pk_faixa',chave,[]) then
+        descr := taxasfaixa1.asstring + ' a '+ taxasfaixa2.asstring
+      else
+        descr := 'Outros';
+      frotinas.qry_livre2.append;
+      frotinas.qry_livre2.fieldByName('job').value := job;
+      frotinas.qry_livre2.fieldByName('chave').value := chave;
+      frotinas.qry_livre2.fieldByName('descricao').value := descr;
+      frotinas.qry_livre2.fieldByName('valor').value := taxasfaixa1.asstring;
+      frotinas.qry_livre2.post;
+    end;
+
+    // 1 principal, 2 juros, 3 multa, 4 acres, 5 desc_juros, 6 desc_multa, 7 desc_principal, 8 valor_retenc
+
+    frotinas.qry_livre2.edit;
+    frotinas.qry_livre2.fieldByName('dec_1').value := frotinas.qry_livre2.fieldByName('dec_1').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('principal').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_2').value := frotinas.qry_livre2.fieldByName('dec_2').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('juros').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_3').value := frotinas.qry_livre2.fieldByName('dec_3').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('multa').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_4').value := frotinas.qry_livre2.fieldByName('dec_4').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('acres_protesto').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_5').value := frotinas.qry_livre2.fieldByName('dec_5').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('desc_juros').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_6').value := frotinas.qry_livre2.fieldByName('dec_6').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('desc_multa').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_7').value := frotinas.qry_livre2.fieldByName('dec_7').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('desc_principal').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_8').value := frotinas.qry_livre2.fieldByName('dec_8').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('valor_retenc').asfloat;
+
+
+    frotinas.qry_livre2.fieldByName('dec_10').value := frotinas.qry_livre2.fieldByName('dec_10').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('VrTxAdm').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_11').value := frotinas.qry_livre2.fieldByName('dec_11').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('VrTxBancaria').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_12').value := frotinas.qry_livre2.fieldByName('dec_12').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('VrTxSegVia').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_13').value := frotinas.qry_livre2.fieldByName('dec_13').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('DescTxAdm').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_14').value := frotinas.qry_livre2.fieldByName('dec_14').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('DescTxBancaria').asfloat;
+
+    frotinas.qry_livre2.fieldByName('dec_16').value := frotinas.qry_livre2.fieldByName('dec_16').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('baixaparcial').asfloat;
+
+    frotinas.qry_livre2.fieldByName('dec_17').value := frotinas.qry_livre2.fieldByName('dec_17').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('acrescimo').asfloat;
+    frotinas.qry_livre2.fieldByName('dec_18').value := frotinas.qry_livre2.fieldByName('dec_18').asfloat +
+                                                      frotinas.Qry_Livre.fieldByName('honorario').asfloat;
+
+    {liquido := (frotinas.qry_livre2.fieldByName('dec_1').asfloat + frotinas.qry_livre2.fieldByName('dec_2').asfloat +
+               frotinas.qry_livre2.fieldByName('dec_3').asfloat + frotinas.qry_livre2.fieldByName('dec_4').asfloat ) -
+
+              (frotinas.qry_livre2.fieldByName('dec_5').asfloat + frotinas.qry_livre2.fieldByName('dec_6').asfloat +
+               frotinas.qry_livre2.fieldByName('dec_7').asfloat );   }
+
+
+    frotinas.qry_livre2.fieldByName('dec_9').value := frotinas.qry_livre2.fieldByName('dec_9').asfloat+
+                                                       frotinas.qry_livre.fieldByName('valor_liquido').asfloat;
+
+    frotinas.qry_livre2.post;
+
+    frotinas.Qry_Livre.next;
+  end;
+
+
+  //
+  // baixas parciais
+  //
+  if qry_bxparcial.recordCount>0 then
+  begin
+
+    qry_bxparcial.first();
+    while not qry_bxparcial.eof do
+    begin
+
+      atraso := qry_bxparcial.fieldByName('atraso').asinteger ;
+
+      taxas.first;
+      chave := -1;
+      if (atraso >= taxasfaixa1.asfloat) and (atraso <= taxasfaixa2.asfloat) then
+        chave := taxaspk_faixa.value
+      else
+      begin
+        while (not taxas.eof) and (chave<>null) do
+        begin
+          if (atraso >= taxasfaixa1.asfloat) and (atraso <= taxasfaixa2.asfloat) then
+            chave := taxaspk_faixa.value;
+          taxas.next;
+        end;
+      end;
+
+      if not frotinas.qry_livre2.Locate('chave',chave,[]) then
+      begin
+        if taxas.Locate('pk_faixa',chave,[]) then
+          descr := taxasfaixa1.asstring + ' a '+ taxasfaixa2.asstring
+        else
+          descr := 'Outros';
+        frotinas.qry_livre2.append;
+        frotinas.qry_livre2.fieldByName('job').value := job;
+        frotinas.qry_livre2.fieldByName('chave').value := chave;
+        frotinas.qry_livre2.fieldByName('descricao').value := descr;
+        frotinas.qry_livre2.fieldByName('valor').value := taxasfaixa1.asstring;
+        frotinas.qry_livre2.post;
+      end;
+
+      frotinas.qry_livre2.edit;
+      frotinas.qry_livre2.fieldByName('dec_1').value := frotinas.qry_livre2.fieldByName('dec_1').asfloat +
+                                                        qry_bxparcial.fieldByName('principal').asfloat;
+      frotinas.qry_livre2.fieldByName('dec_8').value := frotinas.qry_livre2.fieldByName('dec_8').asfloat +
+                                                        qry_bxparcial.fieldByName('valor_retenc').asfloat;
+      frotinas.qry_livre2.fieldByName('dec_9').value := frotinas.qry_livre2.fieldByName('dec_9').asfloat+
+                                                        qry_bxparcial.fieldByName('principal').asfloat;
+
+      frotinas.qry_livre2.post;
+
+      qry_bxparcial.next;
+    end;
+
+  end;
+
+  try
+    Application.CreateForm(Tqr_pcontas, qr_pcontas);
+
+    lb_mens.caption := 'Pesquisando informações...';
+
+    select := 'select descricao, dec_1 as principal, dec_2 as juros, dec_3 as multa, dec_17 as acrescimo, dec_5 as descjuros, ';
+    select := select + 'dec_6 as descmulta, dec_7 as descprincipal, dec_8 as retencao, dec_9 as liquido ,dec_10 as VrTxAdm, dec_11 as VrTxBancaria,dec_12 as VrTxSegVia, dec_13 as DescTxAdm, dec_14 as DescTxBancaria, dec_4 as Protesto';
+    select := select + ', dec_16 as baixaparcial, dec_17 as acrescimo ,dec_18 as honorario ';
+
+    from   := 'from jobs ';
+    where  := 'where job='+inttostr(job);
+    order  := ' order by valor';
+
+    qr_pcontas.ADOQuery1.close;
+    qr_pcontas.ADOQuery1.sql.Text := select + from + where + order;
+    qr_pcontas.ADOQuery1.open;
+
+    while not qr_pcontas.ADOQuery1.eof do
+    begin
+
+      tprinc := tprinc + qr_pcontas.ADOQuery1principal.asfloat;
+      tjuros := tjuros + qr_pcontas.ADOQuery1juros.asfloat;
+      tmulta := tmulta + qr_pcontas.ADOQuery1multa.asfloat;
+
+      tdescprinc := tdescprinc + qr_pcontas.ADOQuery1descprincipal.asfloat;
+      tdescjuros := tdescjuros + qr_pcontas.ADOQuery1descjuros.asfloat;
+      tdescmulta := tdescmulta + qr_pcontas.ADOQuery1descmulta.asfloat;
+
+      thonor     := thonor + qr_pcontas.ADOQuery1acrescimo.asfloat;
+      tretenc    := tretenc + qr_pcontas.ADOQuery1retencao.asfloat;
+      trepasse   := trepasse + qr_pcontas.ADOQuery1liquido.asfloat;
+      tprotesto  := tprotesto + qr_pcontas.ADOQuery1protesto.asfloat;
+      tacrescimo  := tacrescimo + qr_pcontas.ADOQuery1acrescimo.asfloat;
+      thonorario  := thonorario + qr_pcontas.ADOQuery1honorario.asfloat;
+
+      tVrTxAdm:=tVrTxAdm + qr_pcontas.ADOQuery1VrTxAdm.asfloat;
+      tVrTxBancaria:=tVrTxBancaria + qr_pcontas.ADOQuery1VrTxBancaria.asfloat;
+      tVrTxSegVia:=tVrTxSegVia+qr_pcontas.ADOQuery1VrTxSegVia.asfloat;
+
+      tDescTxAdm:=tDescTxAdm+qr_pcontas.ADOQuery1DescTxAdm.asfloat;
+
+      tDescTxBancaria:=tDescTxBancaria+qr_pcontas.ADOQuery1DescTxBancaria.asfloat;
+
+      tbxParcial := tbxParcial+qr_pcontas.ADOQuery1baixaparcial.asfloat;
+
+      qr_pcontas.ADOQuery1.next;
+    end;
+
+    qr_pcontas.qlb_cliente.caption := tb_clientes.fieldByName('nome').value;
+
+
+    qr_pcontas.tot_princ.Caption := FormatFloat('#,0.00',tprinc);
+    qr_pcontas.tot_juros.Caption := FormatFloat('#,0.00',tjuros);
+    qr_pcontas.tot_multa.Caption := FormatFloat('#,0.00',tmulta);
+    qr_pcontas.tot_descp.Caption := FormatFloat('#,0.00',tdescprinc);
+    qr_pcontas.tot_descj.Caption := FormatFloat('#,0.00',tdescjuros);
+    qr_pcontas.tot_descm.Caption := FormatFloat('#,0.00',tdescmulta);
+    qr_pcontas.tot_txADM.caption := FormatFloat('#,0.00',tVrTxAdm);
+    qr_pcontas.tot_txBanc.caption := FormatFloat('#,0.00',tVrTxSegVia);
+
+    qr_pcontas.tot_segVia.caption := FormatFloat('#,0.00',tVrTxBancaria);
+    qr_pcontas.tot_protesto.Caption := FormatFloat('#,0.00',tprotesto);
+
+    qr_pcontas.tot_descTxAdm.Caption := FormatFloat('#,0.00',tDescTxAdm);
+    qr_pcontas.tot_descTxBanc.Caption := FormatFloat('#,0.00',tDescTxBancaria);
+
+    qr_pcontas.qrl_bxparcial.Caption := FormatFloat('#,0.00',tBxparcial);
+
+    qr_pcontas.tot_acres.caption := FormatFloat('#,0.00',tacrescimo);
+
+    qr_pcontas.tot_honorario.caption := FormatFloat('#,0.00',thonorario);
+
+
+
+    if tretenc>0 then
+    begin
+      qr_pcontas.tot_retenc.Caption := FormatFloat('#,0.00',tretenc);
+      qr_pcontas.qrlb_acess.caption := 'Retenção' ;
+    end
+    else
+    begin
+       qr_pcontas.tot_retenc.Caption := FormatFloat('#,0.00',tVrTxAdm-tDescTxAdm);
+       qr_pcontas.qrlb_acess.caption := 'Tx Adm.' ;
+
+    end;
+
+    qr_pcontas.tot_liquido.Caption := FormatFloat('#,0.00',trepasse);
+
+
+
+    qr_pcontas.qrlb_variaveis.caption := '';
+    if edt_prestacoes.text <> '' then
+      qr_pcontas.qrlb_variaveis.caption := 'Número: '+edt_prestacoes.text;
+
+
+
+    qr_pcontas.preview;
+  finally
+    qr_pcontas.destroy;
+  end;
+
+
+  frotinas.ADOCommand1.Prepared := true;
+  frotinas.ADOCommand1.CommandText := 'delete from jobs where job='+intToStr(job);
+  frotinas.ADOCommand1.Execute;
+
+  lb_mens.Visible := false;
+  //qr_pcontas.close;
+
+end;
+
+procedure Tfrm_RelPrestContas.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+if key = #13 then
+      begin
+         key := #0;
+         PerForm (cm_dialogKey,vk_tab,0);
+      end;
+{Trocando Virgula por Ponto}
+if Key in [',','.'] then
+  Key := DecimalSeparator;
+
+end;
+
+end.

@@ -1,0 +1,25 @@
+
+declare @fx1_de int
+declare @fx1_ate int
+declare @fx2_de int
+declare @fx2_ate int
+declare @fx3_de int
+declare @fx3_ate int
+
+declare @cliente int
+declare @tipo varchar(3)
+declare @cobrador int
+
+set @fx1_de = 1
+set @fx1_ate = 30
+
+set @fx2_de = 61
+set @fx2_ate = 90
+
+set @fx3_de =91
+set @fx3_ate=460
+
+set @cliente =82
+
+
+exec sp_calcularDemonstrativo @fx1_de , @fx1_ate , @fx2_de , @fx2_ate , @fx3_de , @fx3_ate, @cliente, @cobrador, @tipo  

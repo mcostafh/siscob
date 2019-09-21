@@ -1,0 +1,206 @@
+unit Uqr_defasagem;
+
+interface
+
+uses Windows, SysUtils, Messages, Classes, Graphics, Controls,
+  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls, DB, ADODB;
+
+type
+  Tqr_defasagem = class(TQuickRep)
+    ADOQuery1: TADOQuery;
+    QRBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRSysData2: TQRSysData;
+    QRLabel4: TQRLabel;
+    QRBand2: TQRBand;
+    QRLabel23: TQRLabel;
+    QRBand3: TQRBand;
+    QRDBText4: TQRDBText;
+    qlb_cobrador: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRShape5: TQRShape;
+    QRGroup1: TQRGroup;
+    Label1: TLabel;
+    QRDBText9: TQRDBText;
+    QRShape3: TQRShape;
+    QRShape17: TQRShape;
+    QRShape30: TQRShape;
+    QRShape31: TQRShape;
+    QRShape4: TQRShape;
+    QRImage2: TQRImage;
+    ADOQuery1pk_devedor: TIntegerField;
+    ADOQuery1pk_cliente: TIntegerField;
+    ADOQuery1cgc_cpf: TStringField;
+    ADOQuery1nome: TStringField;
+    ADOQuery1motivo_dialogo: TIntegerField;
+    ADOQuery1data_dialogo: TDateTimeField;
+    ADOQuery1pk_cobrador: TIntegerField;
+    ADOQuery1nome_cliente: TStringField;
+    ADOQuery1nome_motivo: TWideStringField;
+    ADOQuery1nome_cobrador: TWideStringField;
+    QRLabel2: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRShape1: TQRShape;
+    QRShape2: TQRShape;
+    QRLabel8: TQRLabel;
+    QRShape6: TQRShape;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRShape7: TQRShape;
+    QRShape8: TQRShape;
+    QRShape9: TQRShape;
+    QRShape10: TQRShape;
+    QRDBText11: TQRDBText;
+    qrlb_atraso: TQRLabel;
+    qrlb_venc: TQRLabel;
+    qrlb_princ: TQRLabel;
+    qrlb_numero: TQRLabel;
+    ADOQuery1maiorvenc: TDateTimeField;
+    qrlb_cliente: TQRLabel;
+    ADOQuery1prim_dialogo: TDateTimeField;
+    QRLabel13: TQRLabel;
+    QRShape11: TQRShape;
+    QRShape12: TQRShape;
+    QRShape13: TQRShape;
+    QRLabel10: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRShape14: TQRShape;
+    ADOQuery1agendado_data: TDateTimeField;
+    ADOQuery1defasagem: TIntegerField;
+    procedure QRBand4BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
+    procedure QRBand3BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QRGroup1BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure ADOQuery1CalcFields(DataSet: TDataSet);
+
+  private
+
+  public
+    iqtdDevedores, iQtdTitulos,aqtdDevedores, aQtdTitulos,gQtdDevedores, gQtdTitulos : integer;
+    iValorTitulos, aValorTitulos, gValorTitulos : real;
+    hoje: TdateTime;
+    diasMaxdefasagem:integer;
+
+  end;
+
+var
+  qr_defasagem: Tqr_defasagem;
+
+implementation
+
+{$R *.DFM}
+uses Urotinas,UDM;
+
+procedure Tqr_defasagem.QRBand4BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+//
+end;
+
+procedure Tqr_defasagem.QuickRepBeforePrint(Sender: TCustomQuickRep;
+  var PrintReport: Boolean);
+  var pathImagens:string;
+  var achouLogo : boolean;
+begin
+
+pathImagens := ExtractFilePath(ParamStr(0))+'logo.jpg';
+achouLogo := true;
+if not FileExists(pathImagens) then
+begin
+  pathImagens := ExtractFilePath(ParamStr(0))+'logo.jpeg';
+  if not FileExists(pathImagens) then
+  begin
+    pathImagens := ExtractFilePath(ParamStr(0))+'logo.bmp';
+    if not FileExists(pathImagens) then
+      achouLogo := false;
+  end;
+end;
+
+if achouLogo then
+begin
+   QRImage2.Picture.LoadFromFile(pathimagens);
+   QRImage2.Picture.LoadFromFile(pathimagens);
+end;
+
+end;
+
+procedure Tqr_defasagem.QRBand3BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+
+var hoje,venc:TDateTime;
+begin
+if diasMaxdefasagem>0 then
+begin
+   PrintBand := ADOQuery1defasagem.AsInteger >= diasMaxdefasagem;
+end;
+
+hoje := date;
+
+frotinas.Qry_Livre.close;
+frotinas.Qry_Livre.CommandText := 'select numero_titulo, valor_principal,tipo_titulo,vencimento  from titulos where pk_devedor='+ADOQuery1pk_devedor.asstring+' and vencimento='''+FormatDateTime(frotinas.formato_data_banco(),ADOQuery1maiorvenc.value)+'''';
+frotinas.Qry_Livre.open;
+
+if frotinas.Qry_Livre.recordCount>0 then
+begin
+  venc := ADOQuery1maiorvenc.Value;
+  if venc>0 then
+  begin
+    qrlb_atraso.caption := intToStr( Trunc(hoje - venc) );
+    qrlb_venc.caption   := FormatDateTime(FRotinas.formato_data_banco(),frotinas.Qry_Livre.fieldByName('vencimento').value);
+  end;
+  qrlb_numero.caption := frotinas.Qry_Livre.fieldByName('numero_titulo').asstring+' '+frotinas.Qry_Livre.fieldByName('tipo_titulo').asstring;
+  qrlb_princ.caption  := FormatFloat('###,###,##0.00',frotinas.Qry_Livre.fieldByName('valor_principal').asfloat);
+end;
+
+end;
+
+procedure Tqr_defasagem.QRGroup1BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+if diasMaxdefasagem>0 then
+begin
+   PrintBand := ADOQuery1defasagem.AsInteger >= diasMaxdefasagem;
+end;
+
+end;
+
+procedure Tqr_defasagem.ADOQuery1CalcFields(DataSet: TDataSet);
+var hoje : TdateTime;
+begin
+  hoje := date;
+  if ADOQuery1data_dialogo.value >0 then
+  begin
+    if (ADOQuery1agendado_data.value >0) then
+    begin
+
+      if (ADOQuery1agendado_data.value > hoje ) then
+        ADOQuery1defasagem.value := 0
+      else if (ADOQuery1agendado_data.value > ADOQuery1data_dialogo.value) then
+        ADOQuery1defasagem.value := Trunc(hoje - ADOQuery1agendado_data.value )
+      else
+        ADOQuery1defasagem.value := Trunc(hoje - ADOQuery1data_dialogo.value );
+    end
+    else
+      ADOQuery1defasagem.value := Trunc(hoje - ADOQuery1data_dialogo.Value );
+
+  end
+  else if ADOQuery1maiorvenc.Value > 0 then
+    ADOQuery1defasagem.value := Trunc(hoje - ADOQuery1maiorvenc.Value )
+  else
+    ADOQuery1defasagem.value := 0;
+
+end;
+
+end.

@@ -1,0 +1,419 @@
+
+unit Uqr_demonst;
+
+interface
+
+uses Windows, SysUtils, Messages, Classes, Graphics, Controls,
+  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls, DB, ADODB, DBTables,
+  MemTable;
+
+type
+  Tqr_demonst = class(TQuickRep)
+    QRBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRSysData2: TQRSysData;
+    QRLabel4: TQRLabel;
+    QRBand2: TQRBand;
+    QRLabel23: TQRLabel;
+    QRBand3: TQRBand;
+    QRDBText4: TQRDBText;
+    QRLabel3: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRLabel6: TQRLabel;
+    QRDBText6: TQRDBText;
+    qlb_cliente: TQRLabel;
+    qrlb_princ: TQRLabel;
+    QRShape2: TQRShape;
+    QRBand4: TQRBand;
+    qrtot_princ: TQRLabel;
+    QRLabel34: TQRLabel;
+    QRShape11: TQRShape;
+    QRShape14: TQRShape;
+    QRShape21: TQRShape;
+    QRShape24: TQRShape;
+    QRDBText1: TQRDBText;
+    qlb_cobrador: TQRLabel;
+    qrtot_titulos: TQRLabel;
+    qrtot_devedores: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRShape1: TQRShape;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    prtot_devedores: TQRLabel;
+    prtot_titulos: TQRLabel;
+    prtot_princ: TQRLabel;
+    QRShape4: TQRShape;
+    QRShape6: TQRShape;
+    QRShape10: TQRShape;
+    QRShape12: TQRShape;
+    QRShape13: TQRShape;
+    QRGroup1: TQRGroup;
+    Label1: TLabel;
+    QRDBText9: TQRDBText;
+    QRBand5: TQRBand;
+    QRLabel11: TQRLabel;
+    Qrl_percValores: TQRLabel;
+    QRL_TSaldo: TQRLabel;
+    QRL_qtdtitulos: TQRLabel;
+    QRL_perctitulos: TQRLabel;
+    QRL_qtdedev: TQRLabel;
+    QRShape3: TQRShape;
+    QRShape15: TQRShape;
+    QRShape16: TQRShape;
+    QRShape18: TQRShape;
+    QRShape20: TQRShape;
+    QRShape22: TQRShape;
+    QRShape23: TQRShape;
+    QRShape26: TQRShape;
+    QRL_percdevedores: TQRLabel;
+    QRImage2: TQRImage;
+    qrlb_pdevedores: TQRLabel;
+    qrlb_ptitulos: TQRLabel;
+    qrlb_pvalores: TQRLabel;
+    QRShape28: TQRShape;
+    qrlb_fx1: TQRLabel;
+    QRShape29: TQRShape;
+    QRShape30: TQRShape;
+    QRShape32: TQRShape;
+    QRShape33: TQRShape;
+    QRShape34: TQRShape;
+    QRShape35: TQRShape;
+    QRShape36: TQRShape;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRShape7: TQRShape;
+    QRShape19: TQRShape;
+    QRShape27: TQRShape;
+    qrlb_fx2: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRLabel22: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRLabel26: TQRLabel;
+    QRShape41: TQRShape;
+    QRShape42: TQRShape;
+    qrlb_fx3: TQRLabel;
+    QRLabel28: TQRLabel;
+    QRLabel29: TQRLabel;
+    QRLabel30: TQRLabel;
+    QRLabel31: TQRLabel;
+    QRShape43: TQRShape;
+    QRShape44: TQRShape;
+    QRShape45: TQRShape;
+    QRShape47: TQRShape;
+    QRShape49: TQRShape;
+    QRShape50: TQRShape;
+    QRShape51: TQRShape;
+    QRShape52: TQRShape;
+    QRShape53: TQRShape;
+    QRShape54: TQRShape;
+    QRShape55: TQRShape;
+    QRShape56: TQRShape;
+    QRShape57: TQRShape;
+    QRShape58: TQRShape;
+    QRShape59: TQRShape;
+    QRShape60: TQRShape;
+    QRShape61: TQRShape;
+    QRShape62: TQRShape;
+    QRShape63: TQRShape;
+    QRShape64: TQRShape;
+    QRShape65: TQRShape;
+    QRShape66: TQRShape;
+    QRShape67: TQRShape;
+    QRShape68: TQRShape;
+    QRShape70: TQRShape;
+    QRShape71: TQRShape;
+    QRShape72: TQRShape;
+    QRShape73: TQRShape;
+    QRShape74: TQRShape;
+    QRShape76: TQRShape;
+    QRShape77: TQRShape;
+    QRShape78: TQRShape;
+    QRShape79: TQRShape;
+    QRShape80: TQRShape;
+    QRShape82: TQRShape;
+    QRShape83: TQRShape;
+    QRShape84: TQRShape;
+    QRShape85: TQRShape;
+    QRShape86: TQRShape;
+    QRShape88: TQRShape;
+    QRShape89: TQRShape;
+    QRShape90: TQRShape;
+    QRShape91: TQRShape;
+    QRShape92: TQRShape;
+    qrlb_ptitulos2: TQRLabel;
+    QRDBText5: TQRDBText;
+    qrlb_pvalores2: TQRLabel;
+    QRDBText7: TQRDBText;
+    qrlb_ptitulos3: TQRLabel;
+    QRDBText10: TQRDBText;
+    qrlb_pvalores3: TQRLabel;
+    QRDBText11: TQRDBText;
+    QRL_perctitulos2: TQRLabel;
+    QRL_qtdtitulos2: TQRLabel;
+    Qrl_percValores2: TQRLabel;
+    QRL_TSaldo2: TQRLabel;
+    prtot_titulos2: TQRLabel;
+    qrtot_titulos2: TQRLabel;
+    prtot_princ2: TQRLabel;
+    qrtot_princ2: TQRLabel;
+    QRL_perctitulos3: TQRLabel;
+    QRL_qtdtitulos3: TQRLabel;
+    Qrl_percValores3: TQRLabel;
+    QRL_TSaldo3: TQRLabel;
+    prtot_titulos3: TQRLabel;
+    qrtot_titulos3: TQRLabel;
+    QRLabel39: TQRLabel;
+    qrtot_princ3: TQRLabel;
+    tb_rel: TADOQuery;
+    tb_reljob: TIntegerField;
+    tb_reltipo: TWideStringField;
+    tb_reldescricao: TWideStringField;
+    tb_relfx1_qtd_tit: TBCDField;
+    tb_relfx1_valor: TBCDField;
+    tb_relfx2_qtd_tit: TBCDField;
+    tb_relfx2_valor: TBCDField;
+    tb_relfx3_qtd_tit: TBCDField;
+    tb_relfx3_valor: TBCDField;
+    tb_relpercDevedores: TBCDField;
+    tb_relpercTitulos: TBCDField;
+    tb_relpercValores: TBCDField;
+    tb_relmotivo_dialogo: TStringField;
+    tb_relpk_devedor: TIntegerField;
+    sp_calculaDemonst: TADOStoredProc;
+    sp_calculaDemonstmotivo_dialogo: TIntegerField;
+    sp_calculaDemonsttipo: TStringField;
+    sp_calculaDemonstdescricao: TWideStringField;
+    sp_calculaDemonstfx1_qtd_tit: TIntegerField;
+    sp_calculaDemonstfx1_valor: TBCDField;
+    sp_calculaDemonstfx2_qtd_tit: TIntegerField;
+    sp_calculaDemonstfx2_valor: TBCDField;
+    sp_calculaDemonstfx3_qtd_tit: TIntegerField;
+    sp_calculaDemonstfx3_valor: TBCDField;
+    sp_calculaDemonstpercdevedores: TBCDField;
+    sp_calculaDemonstperctitulos: TBCDField;
+    sp_calculaDemonstpercvalores: TBCDField;
+    ADOQuery1: TADOQuery;
+    qrlb_mns: TQRLabel;
+    QRShape5: TQRShape;
+    QRShape8: TQRShape;
+    QRShape9: TQRShape;
+    QRShape17: TQRShape;
+    QRShape25: TQRShape;
+    QRShape31: TQRShape;
+    sp_calculaDemonstqtd_dev: TIntegerField;
+    tb_relqtd_dev: TBCDField;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel16: TQRLabel;
+    qrlb_ptotais: TQRLabel;
+    tb_relvalor_total: TBCDField;
+    QRDBText3: TQRDBText;
+    qrl_ssaldo: TQRLabel;
+    qrl_gsaldo: TQRLabel;
+    qrl_sperctotais: TQRLabel;
+    QRLabel17: TQRLabel;
+    procedure QRBand4BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
+    procedure QRBand5BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure QRBand3BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+
+  private
+
+  public
+
+    iqtdDevedores, iQtdTitulos,aqtdDevedores, aQtdTitulos,gQtdDevedores, gQtdTitulos : integer;
+    iValorTitulos, aValorTitulos, gValorTitulos : real;
+    iqtdDevedores2, iQtdTitulos2,aqtdDevedores2, aQtdTitulos2,gQtdDevedores2, gQtdTitulos2 : integer;
+    iValorTitulos2, aValorTitulos2, gValorTitulos2 : real;
+    iqtdDevedores3, iQtdTitulos3,aqtdDevedores3, aQtdTitulos3,gQtdDevedores3, gQtdTitulos3 : integer;
+    iValorTitulos3,  aValorTitulos3, gValorTitulos3 : real;
+
+    sativoValorTotal, sinatValorTotal, gValorTotal :real;
+
+    siqtdDevedores,  siQtdTitulos,  siqtdDevedores2,  siQtdTitulos2,  siqtdDevedores3,
+        siQtdTitulos3,  saqtdDevedores,  saQtdTitulos,  saqtdDevedores2,  saQtdTitulos2,
+        saqtdDevedores3,  saQtdTitulos3:integer;
+    siValorTitulos, siValorTitulos2, siValorTitulos3, saValorTitulos,   saValorTitulos3 ,saValorTitulos2     :real;
+    tipoOcorrencia : string;
+
+  end;
+
+var
+  qr_demonst: Tqr_demonst;
+
+implementation
+
+{$R *.DFM}
+uses Urotinas,UDM;
+
+procedure Tqr_demonst.QRBand4BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+//
+end;
+
+procedure Tqr_demonst.QuickRepBeforePrint(Sender: TCustomQuickRep;
+  var PrintReport: Boolean);
+  var pathImagens:string;
+  var achouLogo : boolean;
+begin
+
+pathImagens := ExtractFilePath(ParamStr(0))+'logo.jpg';
+achouLogo := true;
+if not FileExists(pathImagens) then
+begin
+  pathImagens := ExtractFilePath(ParamStr(0))+'logo.jpeg';
+  if not FileExists(pathImagens) then
+  begin
+    pathImagens := ExtractFilePath(ParamStr(0))+'logo.bmp';
+    if not FileExists(pathImagens) then
+      achouLogo := false;
+  end;
+end;
+
+if achouLogo then
+begin
+   QRImage2.Picture.LoadFromFile(pathimagens);
+   QRImage2.Picture.LoadFromFile(pathimagens);
+end;
+
+end;
+
+procedure Tqr_demonst.QRBand5BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+
+
+  if tipoOcorrencia = 'Inativo' then
+  begin
+
+    QRL_qtdedev.Caption    := intToStr(siqtdDevedores);
+    QRL_qtdtitulos.Caption := intToStr(siQtdTitulos);
+    QRL_TSaldo.Caption     := FormatFloat('##,###,###,##0.00',siValorTitulos);
+
+    QRL_perctitulos.caption:= FormatFloat('##0', urotinas.divide(siQtdTitulos , gQtdTitulos ) * 100 );
+    Qrl_percValores.caption:= FormatFloat('##0', urotinas.divide(siValorTitulos , gValorTitulos) * 100);
+    QRL_percdevedores.caption:=FormatFloat('##0',urotinas.divide(siqtdDevedores , gqtdDevedores) * 100);
+
+    QRL_qtdtitulos2.Caption := intToStr(iQtdTitulos2);
+    QRL_TSaldo2.Caption     := FormatFloat('##,###,###,##0.00',iValorTitulos2);
+    QRL_perctitulos2.caption:= FormatFloat('##0',urotinas.divide(iQtdTitulos2 , gQtdTitulos2) * 100);
+    Qrl_percValores2.caption:= FormatFloat('##0',urotinas.divide(iValorTitulos2 , gValorTitulos2) * 100);
+
+    QRL_qtdtitulos3.Caption := intToStr(iQtdTitulos3);
+    QRL_TSaldo3.Caption     := FormatFloat('##,###,###,##0.00',iValorTitulos3);
+    QRL_perctitulos3.caption:= FormatFloat('##0',urotinas.divide(iQtdTitulos3 , gQtdTitulos3) * 100);
+    Qrl_percValores3.caption:= FormatFloat('##0',urotinas.divide(iValorTitulos3 , gValorTitulos3) * 100);
+
+    qrl_ssaldo.Caption := FormatFloat('##,###,###,##0.00',sinatValorTotal);
+
+
+
+  end
+  else
+  begin
+
+    QRL_qtdedev.Caption    := intToStr(saqtdDevedores);
+    QRL_qtdtitulos.Caption := intToStr(saQtdTitulos);
+    QRL_perctitulos.caption:= FormatFloat('##0',urotinas.divide(saQtdTitulos , gQtdTitulos) * 100);
+    QRL_TSaldo.Caption     := FormatFloat('##,###,###,##0.00',saValorTitulos);
+    Qrl_percValores.caption:= FormatFloat('##0',urotinas.divide(saValorTitulos , gValorTitulos) * 100);
+    QRL_percdevedores.caption:=FormatFloat('##0',urotinas.divide(saqtdDevedores , gqtdDevedores) * 100);
+
+    QRL_qtdtitulos2.Caption := intToStr(saQtdTitulos2);
+    QRL_TSaldo2.Caption     := FormatFloat('##,###,###,##0.00',saValorTitulos2);
+    QRL_perctitulos2.caption:= FormatFloat('##0',urotinas.divide(saQtdTitulos2 , gQtdTitulos2) * 100);
+    Qrl_percValores2.caption:= FormatFloat('##0',urotinas.divide(saValorTitulos2 , gValorTitulos2) * 100);
+
+    QRL_qtdtitulos3.Caption := intToStr(saQtdTitulos3);
+    QRL_TSaldo3.Caption     := FormatFloat('##,###,###,##0.00',saValorTitulos3);
+    QRL_perctitulos3.caption:= FormatFloat('##0',urotinas.divide(saQtdTitulos3 , gQtdTitulos3) * 100);
+    Qrl_percValores3.caption:= FormatFloat('##0',urotinas.divide(saValorTitulos3 , gValorTitulos3) * 100);
+
+    qrl_ssaldo.Caption := FormatFloat('##,###,###,##0.00',sativoValorTotal);
+
+
+  end;
+
+
+end;
+
+procedure Tqr_demonst.QRBand3BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+begin
+
+  tipoOcorrencia :=tb_reltipo.value;
+
+
+  if tb_reltipo.value = 'Inativo' then
+  begin
+
+    if siqtdDevedores >0 then
+      qrlb_pdevedores.caption := FormatFloat('##0',urotinas.divide(tb_relqtd_dev.asInteger , siqtdDevedores) * 100 );
+
+
+    if siqtdTitulos >0 then
+      qrlb_ptitulos.caption   := FormatFloat('##0',urotinas.divide(tb_relfx1_qtd_tit.value , siqtdTitulos) * 100);
+    if sivalorTitulos > 0 then
+      qrlb_pvalores.caption   := FormatFloat('##0',urotinas.divide(tb_relfx1_valor.asfloat , sivalorTitulos)*100);
+
+    if siqtdTitulos2>0 then
+      qrlb_ptitulos2.caption   := FormatFloat('##0',urotinas.divide(tb_relfx2_qtd_tit.value , siqtdTitulos2) * 100);
+    if sivalorTitulos2>0 then
+      qrlb_pvalores2.caption   := FormatFloat('##0',urotinas.divide(tb_relfx2_valor.asfloat , sivalorTitulos2)*100);
+
+    if iqtdTitulos3>0 then
+      qrlb_ptitulos3.caption   := FormatFloat('##0',urotinas.divide(tb_relfx3_qtd_tit.value , siqtdTitulos3) * 100);
+
+    if sivalorTitulos3>0 then
+      qrlb_pvalores3.caption   := FormatFloat('##0',urotinas.divide(tb_relfx3_valor.asfloat , sivalorTitulos3)*100);
+
+    if sinatValorTotal>0 then
+      qrlb_ptotais.Caption := FormatFloat('##0',urotinas.divide(tb_relvalor_total.asinteger  , sinatValorTotal) * 100);
+
+    if gValorTotal>0 then
+      qrl_sperctotais.Caption := FormatFloat('##0',urotinas.divide(sinatValorTotal  , gValorTotal) * 100);
+
+
+  end
+  else
+  begin
+
+    qrlb_pdevedores.caption := FormatFloat('##0',urotinas.divide(tb_relqtd_dev.asInteger , saqtdDevedores) * 100 );
+
+    qrlb_ptitulos.caption   := FormatFloat('##0',urotinas.divide(tb_relfx1_qtd_tit.value , saqtdTitulos) * 100);
+    qrlb_pvalores.caption   := FormatFloat('##0',urotinas.divide(tb_relfx1_valor.asfloat , savalorTitulos)*100);
+
+    if saqtdTitulos2>0 then
+      qrlb_ptitulos2.caption   := FormatFloat('##0',urotinas.divide(tb_relfx2_qtd_tit.value , saqtdTitulos2) * 100);
+    if savalorTitulos2>0 then
+      qrlb_pvalores2.caption   := FormatFloat('##0',urotinas.divide(tb_relfx2_valor.asfloat , savalorTitulos2)*100);
+
+    if aqtdTitulos3>0 then
+      qrlb_ptitulos3.caption   := FormatFloat('##0',urotinas.divide(tb_relfx3_qtd_tit.value , saqtdTitulos3) * 100);
+    if avalorTitulos3>0 then
+      qrlb_pvalores3.caption   := FormatFloat('##0',urotinas.divide(tb_relfx3_valor.asfloat , savalorTitulos3)*100);
+
+    if sativoValorTotal>0 then
+      qrlb_ptotais.Caption := FormatFloat('##0',urotinas.divide(tb_relvalor_total.asinteger  , sativoValorTotal) * 100);
+
+    if gValorTotal>0 then
+      qrl_sperctotais.Caption := FormatFloat('##0',urotinas.divide(sativoValorTotal  , gValorTotal) * 100);
+
+
+
+  end;
+
+end;
+
+end.

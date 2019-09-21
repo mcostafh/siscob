@@ -1,0 +1,100 @@
+inherited Frm_cadMotivosSPC: TFrm_cadMotivosSPC
+  Caption = 'Motivos do SPC'
+  OldCreateOrder = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel2: TPanel
+    object Label1: TLabel
+      Left = 8
+      Top = 176
+      Width = 32
+      Height = 13
+      Caption = 'codigo'
+      FocusControl = DBEdit1
+    end
+    object Label2: TLabel
+      Left = 72
+      Top = 176
+      Width = 26
+      Height = 13
+      Caption = 'nome'
+      FocusControl = DBEdit2
+    end
+    object DBGrid1: TDBGrid
+      Left = 1
+      Top = 1
+      Width = 544
+      Height = 168
+      Align = alTop
+      DataSource = DataSource1
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'CODIGO'
+          Title.Caption = 'C'#243'digo'
+          Width = 64
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOME'
+          Title.Caption = 'Nome'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'faixai'
+          Title.Caption = 'Faixa Inicial'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'faixaf'
+          Title.Caption = 'Faixa Final'
+          Visible = True
+        end>
+    end
+    object DBEdit1: TDBEdit
+      Left = 8
+      Top = 192
+      Width = 43
+      Height = 21
+      DataField = 'codigo'
+      DataSource = DataSource1
+      TabOrder = 1
+    end
+    object DBEdit2: TDBEdit
+      Left = 72
+      Top = 192
+      Width = 418
+      Height = 21
+      DataField = 'nome'
+      DataSource = DataSource1
+      TabOrder = 2
+    end
+  end
+  inherited Query1: TADODataSet
+    Connection = nil
+    BeforePost = Query1BeforePost
+    CommandText = 'select * from motivosspc'
+    object Query1PK_MOTIVO: TBCDField
+      FieldName = 'PK_MOTIVO'
+      Precision = 18
+      Size = 0
+    end
+    object Query1CODIGO: TStringField
+      FieldName = 'CODIGO'
+      Size = 2
+    end
+    object Query1NOME: TStringField
+      FieldName = 'NOME'
+      Size = 40
+    end
+  end
+end
