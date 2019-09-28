@@ -417,9 +417,9 @@ object Frm_Distribuir: TFrm_Distribuir
     Top = 37
   end
   object Dts_cliente: TDataSource
-    DataSet = tb_cliente
-    Left = 416
-    Top = 8
+    DataSet = qry_clientes
+    Left = 504
+    Top = 104
   end
   object qry_devedor: TADOQuery
     Connection = DM.DB
@@ -457,89 +457,6 @@ object Frm_Distribuir: TFrm_Distribuir
     Parameters = <>
     Left = 273
     Top = 257
-  end
-  object tb_cliente: TADOQuery
-    Connection = DM.DB
-    Parameters = <>
-    SQL.Strings = (
-      'select * from clientes where inativado is null')
-    Left = 344
-    Top = 8
-    object tb_clientepk_cliente: TIntegerField
-      FieldName = 'pk_cliente'
-    end
-    object tb_clientenome: TStringField
-      FieldName = 'nome'
-      Size = 50
-    end
-    object tb_clienteperc_juros_mes: TBCDField
-      FieldName = 'perc_juros_mes'
-      Precision = 18
-      Size = 0
-    end
-    object tb_clienteperc_multa: TBCDField
-      FieldName = 'perc_multa'
-      Precision = 18
-      Size = 0
-    end
-    object tb_clientecnpj: TStringField
-      FieldName = 'cnpj'
-    end
-    object tb_clientelayout_Inteq: TStringField
-      FieldName = 'layout_Inteq'
-      Size = 1
-    end
-    object tb_clientebaixaTit_Carga: TStringField
-      FieldName = 'baixaTit_Carga'
-      Size = 1
-    end
-    object tb_clienteTELEFONE: TStringField
-      FieldName = 'TELEFONE'
-      Size = 30
-    end
-    object tb_clienteFAX: TStringField
-      FieldName = 'FAX'
-    end
-    object tb_clienteZERO_OITOCENTOS: TStringField
-      FieldName = 'ZERO_OITOCENTOS'
-      Size = 15
-    end
-    object tb_clienteRESP_COBRANA: TStringField
-      FieldName = 'RESP_COBRAN'#199'A'
-      Size = 60
-    end
-    object tb_clientearquivabxparcial: TStringField
-      FieldName = 'arquivabxparcial'
-      FixedChar = True
-      Size = 1
-    end
-    object tb_clientebanco1: TStringField
-      FieldName = 'banco1'
-      Size = 10
-    end
-    object tb_clienteagencia1: TStringField
-      FieldName = 'agencia1'
-      Size = 6
-    end
-    object tb_clienteconta1: TStringField
-      FieldName = 'conta1'
-      Size = 10
-    end
-    object tb_clientebanco2: TStringField
-      FieldName = 'banco2'
-      Size = 10
-    end
-    object tb_clienteagencia2: TStringField
-      FieldName = 'agencia2'
-      Size = 6
-    end
-    object tb_clienteconta2: TStringField
-      FieldName = 'conta2'
-      Size = 10
-    end
-    object tb_clienteinativado: TDateTimeField
-      FieldName = 'inativado'
-    end
   end
   object qry_cobradores: TADOQuery
     Connection = DM.DB
@@ -582,5 +499,189 @@ object Frm_Distribuir: TFrm_Distribuir
     DataSet = qry_cobradores
     Left = 336
     Top = 344
+  end
+  object qry_clientes: TADOQuery
+    ConnectionString = 'FILE NAME=C:\sistemas\SisCob.udl'
+    Parameters = <>
+    SQL.Strings = (
+      'select *'
+      'from clientes'
+      'where inativo is null'
+      'order by nome')
+    Left = 464
+    Top = 112
+    object qry_clientespk_cliente: TIntegerField
+      FieldName = 'pk_cliente'
+    end
+    object qry_clientesnome: TStringField
+      FieldName = 'nome'
+      Size = 50
+    end
+    object qry_clientesperc_juros_mes: TFloatField
+      FieldName = 'perc_juros_mes'
+    end
+    object qry_clientesperc_multa: TFloatField
+      FieldName = 'perc_multa'
+    end
+    object qry_clientescnpj: TStringField
+      FieldName = 'cnpj'
+    end
+    object qry_clienteslayout_Inteq: TStringField
+      FieldName = 'layout_Inteq'
+      Size = 1
+    end
+    object qry_clientesbaixaTit_Carga: TStringField
+      FieldName = 'baixaTit_Carga'
+      Size = 1
+    end
+    object qry_clientesTIPO_LOGRADOURO: TStringField
+      FieldName = 'TIPO_LOGRADOURO'
+      Size = 10
+    end
+    object qry_clientesLOGRADOURO: TStringField
+      FieldName = 'LOGRADOURO'
+      Size = 50
+    end
+    object qry_clientesNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Size = 10
+    end
+    object qry_clientesCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 30
+    end
+    object qry_clientesBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 30
+    end
+    object qry_clientesCIDADE: TStringField
+      FieldName = 'CIDADE'
+      Size = 30
+    end
+    object qry_clientesCEP: TStringField
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object qry_clientesUF: TStringField
+      FieldName = 'UF'
+      Size = 50
+    end
+    object qry_clientesPONTO_REF: TStringField
+      FieldName = 'PONTO_REF'
+      Size = 30
+    end
+    object qry_clientesTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      Size = 30
+    end
+    object qry_clientesFAX: TStringField
+      FieldName = 'FAX'
+    end
+    object qry_clientesZERO_OITOCENTOS: TStringField
+      FieldName = 'ZERO_OITOCENTOS'
+      Size = 15
+    end
+    object qry_clientesEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 60
+    end
+    object qry_clientesSKYPE: TStringField
+      FieldName = 'SKYPE'
+      Size = 40
+    end
+    object qry_clientesMSN: TStringField
+      FieldName = 'MSN'
+      Size = 60
+    end
+    object qry_clientesRESP_COBRANA: TStringField
+      FieldName = 'RESP_COBRAN'#199'A'
+      Size = 60
+    end
+    object qry_clientesarquivabxparcial: TStringField
+      FieldName = 'arquivabxparcial'
+      FixedChar = True
+      Size = 1
+    end
+    object qry_clientesbanco1: TStringField
+      FieldName = 'banco1'
+      Size = 10
+    end
+    object qry_clientesagencia1: TStringField
+      FieldName = 'agencia1'
+      Size = 6
+    end
+    object qry_clientesconta1: TStringField
+      FieldName = 'conta1'
+      Size = 10
+    end
+    object qry_clientesbanco2: TStringField
+      FieldName = 'banco2'
+      Size = 10
+    end
+    object qry_clientesagencia2: TStringField
+      FieldName = 'agencia2'
+      Size = 6
+    end
+    object qry_clientesconta2: TStringField
+      FieldName = 'conta2'
+      Size = 10
+    end
+    object qry_clientesfavorecido1: TStringField
+      FieldName = 'favorecido1'
+      Size = 40
+    end
+    object qry_clientesfavorecido2: TStringField
+      FieldName = 'favorecido2'
+      Size = 40
+    end
+    object qry_clientesinativado: TDateTimeField
+      FieldName = 'inativado'
+    end
+    object qry_clientestipoatraso: TStringField
+      FieldName = 'tipoatraso'
+      Size = 1
+    end
+    object qry_clientescodsocio: TStringField
+      FieldName = 'codsocio'
+      Size = 4
+    end
+    object qry_clientescodentidade: TStringField
+      FieldName = 'codentidade'
+      Size = 8
+    end
+    object qry_clientesrazaosocial: TStringField
+      FieldName = 'razaosocial'
+      Size = 120
+    end
+    object qry_clientesdiasatrasoremessaspc: TIntegerField
+      FieldName = 'diasatrasoremessaspc'
+    end
+    object qry_clientesnaturezainclusaospc: TStringField
+      FieldName = 'naturezainclusaospc'
+      Size = 2
+    end
+    object qry_clientesretirarPorNegociacao: TStringField
+      FieldName = 'retirarPorNegociacao'
+      Size = 1
+    end
+    object qry_clientestiposDeTitulos: TStringField
+      FieldName = 'tiposDeTitulos'
+      Size = 200
+    end
+    object qry_clientestaxaAdm: TBCDField
+      FieldName = 'taxaAdm'
+      Precision = 12
+      Size = 2
+    end
+    object qry_clientesvr_taxa_bancaria: TBCDField
+      FieldName = 'vr_taxa_bancaria'
+      Precision = 12
+      Size = 2
+    end
+    object qry_clientesvr_segunda_via: TBCDField
+      FieldName = 'vr_segunda_via'
+      Precision = 12
+      Size = 2
+    end
   end
 end

@@ -20,22 +20,17 @@ type
     QRLabel6: TQRLabel;
     qlb_cliente: TQRLabel;
     QRShape2: TQRShape;
-    QRShape11: TQRShape;
     QRLabel7: TQRLabel;
     QRLabel9: TQRLabel;
     QRLabel10: TQRLabel;
     QRDBText3: TQRDBText;
-    QRShape5: TQRShape;
     QRGroup1: TQRGroup;
     Label1: TLabel;
     QRDBText9: TQRDBText;
-    QRShape3: TQRShape;
-    QRShape17: TQRShape;
     ADOQuery1chave: TIntegerField;
     ADOQuery1pk_devedor: TIntegerField;
     ADOQuery1Data: TDateTimeField;
     ADOQuery1Hora: TStringField;
-    ADOQuery1Texto: TStringField;
     ADOQuery1motivo: TIntegerField;
     ADOQuery1Agendado_Data: TDateTimeField;
     ADOQuery1Agendado_Tipo: TIntegerField;
@@ -49,16 +44,13 @@ type
     ADOQuery1cgc_cpf: TStringField;
     ADOQuery1nomecliente: TStringField;
     QRShape28: TQRShape;
-    QRShape29: TQRShape;
     ADOQuery1nomemotivo: TWideStringField;
     QRShape30: TQRShape;
-    QRShape31: TQRShape;
     QRDBText8: TQRDBText;
     ADOQuery1devedor: TStringField;
     QRShape4: TQRShape;
     QRImage2: TQRImage;
     qrlb_periodo: TQRLabel;
-    QRShape1: TQRShape;
     QRShape6: TQRShape;
     QRLabel2: TQRLabel;
     qrlb_duracao: TQRLabel;
@@ -68,6 +60,7 @@ type
     QRDBText6: TQRDBText;
     QRExcelFilter1: TQRExcelFilter;
     QRExcelFilter2: TQRExcelFilter;
+    ADOQuery1Texto: TStringField;
     procedure QRBand4BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
@@ -132,7 +125,7 @@ procedure Tqr_auditagem.QRBand3BeforePrint(Sender: TQRCustomBand;
   var min:string;
   var minAnt:string;
   var minDuracao:string;
-  var horaDuracao:integer;
+  var horaDuracao, tamanho:integer;
 begin
   minDuracao := '';
 
@@ -186,6 +179,36 @@ begin
 
   horaAnt := ADOQuery1Hora.Value;
   dataAnt := ADOQuery1Data.asstring;
+  tamanho:= Length(ADOQuery1Texto.asstring);
+  if tamanho>100 then
+  begin
+      if tamanho>200  then
+      begin
+        if tamanho>300  then
+        begin
+          QRDBText2.Height :=400;
+          QRBand3.Height := 150;
+        end
+        else
+        begin
+           QRDBText2.Height :=250 ;
+           QRBand3.Height := 90;
+        end;
+      end
+      else
+      begin
+        QRDBText2.Height :=140;
+        QRBand3.Height := 50;
+      end;
+
+  end
+  else
+  begin
+      QRDBText2.Height :=25;
+      QRBand3.Height := 62;
+  end;
+
+
 
 end;
 

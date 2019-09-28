@@ -103,7 +103,6 @@ type
     qry_eventopk_devedor: TIntegerField;
     qry_eventoData: TDateTimeField;
     qry_eventoHora: TStringField;
-    qry_eventoTexto: TStringField;
     qry_eventomotivo: TIntegerField;
     qry_eventoAgendado_Data: TDateTimeField;
     qry_eventoAgendado_Tipo: TIntegerField;
@@ -740,6 +739,7 @@ type
     DBEdit7: TDBEdit;
     Label110: TLabel;
     DBEdit26: TDBEdit;
+    qry_eventoTexto: TStringField;
     procedure bt_fecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

@@ -5108,6 +5108,7 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
   end
   object qry_evento: TADODataSet
     Connection = DM.DB
+    CursorType = ctStatic
     CommandText = 'select *'#13#10'from EVENTOS'#13#10'where 1=2'
     Parameters = <>
     Left = 680
@@ -5124,10 +5125,6 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
     object qry_eventoHora: TStringField
       FieldName = 'Hora'
       Size = 10
-    end
-    object qry_eventoTexto: TStringField
-      FieldName = 'Texto'
-      Size = 250
     end
     object qry_eventomotivo: TIntegerField
       FieldName = 'motivo'
@@ -5157,6 +5154,10 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
     end
     object qry_eventopk_cliente: TIntegerField
       FieldName = 'pk_cliente'
+    end
+    object qry_eventoTexto: TStringField
+      FieldName = 'Texto'
+      Size = 2000
     end
   end
   object telefones: TADODataSet

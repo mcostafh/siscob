@@ -1,6 +1,6 @@
 inherited Frm_Devedores: TFrm_Devedores
-  Left = 138
-  Top = 1
+  Left = 256
+  Top = 10
   Width = 1105
   Height = 698
   Caption = 'Manuten'#231#227'o de Devedores'
@@ -167,7 +167,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 556
           Height = 135
           Caption = 'Trabalho'
-          TabOrder = 10
+          TabOrder = 9
           object Label31: TLabel
             Left = 2
             Top = 17
@@ -309,7 +309,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 555
           Height = 147
           Caption = 'Endere'#231'o '
-          TabOrder = 9
+          TabOrder = 8
           object Label22: TLabel
             Left = 8
             Top = 17
@@ -485,7 +485,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'Profissao'
           DataSource = DataSource1
-          TabOrder = 8
+          TabOrder = 7
         end
         object DBEdit1: TDBEdit
           Left = 427
@@ -495,7 +495,7 @@ inherited Frm_Devedores: TFrm_Devedores
           CharCase = ecUpperCase
           DataField = 'codigo'
           DataSource = DataSource1
-          TabOrder = 7
+          TabOrder = 6
         end
         object DBEdit4: TDBEdit
           Left = 0
@@ -504,7 +504,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'RG'
           DataSource = DataSource1
-          TabOrder = 3
+          TabOrder = 2
         end
         object DBEdit49: TDBEdit
           Left = 103
@@ -513,7 +513,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'data_nasc'
           DataSource = DataSource1
-          TabOrder = 4
+          TabOrder = 3
         end
         object DBEdit5: TDBEdit
           Left = 176
@@ -522,7 +522,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'Orgao_Rg'
           DataSource = DataSource1
-          TabOrder = 5
+          TabOrder = 4
         end
         object DBEdit15: TDBEdit
           Left = 229
@@ -531,7 +531,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'SEXO'
           DataSource = DataSource1
-          TabOrder = 6
+          TabOrder = 5
         end
         object DBEdit3: TDBEdit
           Left = 131
@@ -560,7 +560,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Font.Name = 'Verdana'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 16
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11
@@ -609,7 +609,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Font.Style = []
           ParentColor = False
           ParentFont = False
-          TabOrder = 11
+          TabOrder = 10
           Visible = False
           object Label7: TLabel
             Left = 9
@@ -660,7 +660,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Top = 0
           Width = 525
           Height = 57
-          TabOrder = 12
+          TabOrder = 11
           object Label5: TLabel
             Left = 6
             Top = 11
@@ -716,7 +716,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 121
           Height = 48
           Caption = 'Chave do Devedor'
-          TabOrder = 13
+          TabOrder = 12
           object DBEdit7: TDBEdit
             Left = 4
             Top = 16
@@ -742,7 +742,7 @@ inherited Frm_Devedores: TFrm_Devedores
           DataField = 'anotacoes'
           DataSource = DataSource1
           ScrollBars = ssVertical
-          TabOrder = 14
+          TabOrder = 13
         end
         object edt_cgf: TEdit
           Left = 0
@@ -759,7 +759,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 523
           Height = 135
           Caption = 'Inquilino'
-          TabOrder = 15
+          TabOrder = 14
           object Label75: TLabel
             Left = 133
             Top = 16
@@ -913,7 +913,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 124
           Color = clMoneyGreen
           DataSource = dts_devedores
-          TabOrder = 16
+          TabOrder = 15
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11

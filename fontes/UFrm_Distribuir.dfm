@@ -506,6 +506,7 @@ object Frm_Distribuir: TFrm_Distribuir
     SQL.Strings = (
       'select *'
       'from clientes'
+      'where inativado is null'
       'order by nome')
     Left = 464
     Top = 112

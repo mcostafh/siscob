@@ -1400,7 +1400,7 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
               Top = 36
               Width = 556
               Height = 365
-              ActivePage = TabSheet11
+              ActivePage = tbSheet_DefinirRegra
               Align = alClient
               Style = tsButtons
               TabOrder = 0
@@ -5125,10 +5125,6 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
       FieldName = 'Hora'
       Size = 10
     end
-    object qry_eventoTexto: TStringField
-      FieldName = 'Texto'
-      Size = 250
-    end
     object qry_eventomotivo: TIntegerField
       FieldName = 'motivo'
     end
@@ -5157,6 +5153,10 @@ object frm_cons_cobranca: Tfrm_cons_cobranca
     end
     object qry_eventopk_cliente: TIntegerField
       FieldName = 'pk_cliente'
+    end
+    object qry_eventoTexto: TStringField
+      FieldName = 'Texto'
+      Size = 2000
     end
   end
   object telefones: TADODataSet

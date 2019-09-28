@@ -1,6 +1,6 @@
 inherited Frm_Devedores: TFrm_Devedores
-  Left = 138
-  Top = 1
+  Left = 256
+  Top = 10
   Width = 1105
   Height = 698
   Caption = 'Manuten'#231#227'o de Devedores'
@@ -167,7 +167,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 556
           Height = 135
           Caption = 'Trabalho'
-          TabOrder = 10
+          TabOrder = 9
           object Label31: TLabel
             Left = 2
             Top = 17
@@ -309,7 +309,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 555
           Height = 147
           Caption = 'Endere'#231'o '
-          TabOrder = 9
+          TabOrder = 8
           object Label22: TLabel
             Left = 8
             Top = 17
@@ -485,7 +485,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 21
           DataField = 'Profissao'
           DataSource = DataSource1
-          TabOrder = 8
+          TabOrder = 7
         end
         object DBEdit1: TDBEdit
           Left = 427
@@ -495,7 +495,7 @@ inherited Frm_Devedores: TFrm_Devedores
           CharCase = ecUpperCase
           DataField = 'codigo'
           DataSource = DataSource1
-          TabOrder = 7
+          TabOrder = 2
         end
         object DBEdit4: TDBEdit
           Left = 0
@@ -560,7 +560,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Font.Name = 'Verdana'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 16
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11
@@ -759,7 +759,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Width = 523
           Height = 135
           Caption = 'Inquilino'
-          TabOrder = 15
+          TabOrder = 10
           object Label75: TLabel
             Left = 133
             Top = 16
@@ -831,7 +831,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'nome_inq'
             DataSource = DataSource1
-            TabOrder = 0
+            TabOrder = 1
           end
           object DBEdit77: TDBEdit
             Left = 136
@@ -840,7 +840,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'logradouro_inq'
             DataSource = DataSource1
-            TabOrder = 1
+            TabOrder = 3
           end
           object DBEdit78: TDBEdit
             Left = 42
@@ -849,7 +849,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'Numero_inq'
             DataSource = DataSource1
-            TabOrder = 2
+            TabOrder = 6
           end
           object DBEdit79: TDBEdit
             Left = 2
@@ -858,7 +858,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'bairro_inq'
             DataSource = DataSource1
-            TabOrder = 3
+            TabOrder = 2
           end
           object DBEdit80: TDBEdit
             Left = 4
@@ -867,7 +867,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'uf_inq'
             DataSource = DataSource1
-            TabOrder = 4
+            TabOrder = 5
           end
           object DBEdit81: TDBEdit
             Left = 362
@@ -876,7 +876,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'cidade_inq'
             DataSource = DataSource1
-            TabOrder = 5
+            TabOrder = 4
           end
           object DBEdit82: TDBEdit
             Left = 102
@@ -885,7 +885,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'Compl_inq'
             DataSource = DataSource1
-            TabOrder = 6
+            TabOrder = 7
           end
           object DBEdit83: TDBEdit
             Left = 3
@@ -894,7 +894,7 @@ inherited Frm_Devedores: TFrm_Devedores
             Height = 21
             DataField = 'cpf_inq'
             DataSource = DataSource1
-            TabOrder = 7
+            TabOrder = 0
           end
           object DBEdit84: TDBEdit
             Left = 211
@@ -913,7 +913,7 @@ inherited Frm_Devedores: TFrm_Devedores
           Height = 124
           Color = clMoneyGreen
           DataSource = dts_devedores
-          TabOrder = 16
+          TabOrder = 15
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11

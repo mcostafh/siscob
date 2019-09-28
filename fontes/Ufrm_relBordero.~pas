@@ -201,7 +201,7 @@ end;
 procedure Tfrm_RelBordero.preparaBorderoBaixas();
 var comando,select,from,join,where,group,order:string;
 var select2,from2,where2,group2, nome:string;
-var  gjuros, gmulta, gPrinc, gdescp, gdescj, gdescm, gvalorliq, gvalorret, gprot, ghonor,gacres:real;
+var  gjuros, gmulta, gPrinc, gdescp, gdescj, gdescm, gvalorliq, gvalorret, gprot, ghonor,gacres,iQtdTitulos,iQtdDevedores:real;
 var  gacresc,gtxSegVia,gtxAdm,gtxBanc,tjuros, tmulta, tPrinc, tdescp, gDescBxParcial,tdescj, tdescm,gdesctxbanc,gbxParcial, gdesctxadm, tvalorliq, tvalorret, tacres:real;
 
 
@@ -211,6 +211,10 @@ begin
   from   := '';
   join   := '';
   where  := '';
+
+  iQtdTitulos := 0;
+  iQtdDevedores := 0 ;
+
 
   if lk_cliente.KeyValue = null then
   begin
@@ -402,7 +406,7 @@ begin
       gvalorret := 0.00;
       gacres := 0.00;
 
-      nome:= qr_bordero.ADOQuery1nome_recibo.asstring;
+    nome:= '';
     qr_bordero.ADOQuery1.first();
     while not qr_bordero.ADOQuery1.eof do
     begin
@@ -438,7 +442,12 @@ begin
         gvalorret := gvalorret + qr_bordero.ADOQuery1valor_retenc.asfloat;
         gacres := gacres+qr_bordero.ADOQuery1acrescimo.AsFloat;
 
+        inc(iQtdDevedores);
+
+
       end;
+      inc(iQtdTitulos);
+
 
       qr_bordero.ADOQuery1.next;
     end;
@@ -455,8 +464,8 @@ begin
     qr_bordero.qrlb_gret.Caption := FormatFloat('#,###,##0.00', gvalorret);
     qr_bordero.qrlb_gacres.Caption := FormatFloat('#,###,##0.00',gacres);
 
-    //qr_bordero.qrlb_qtd.caption := FormatFloat('#,###,##0',iQtdTitulos);
-    //qr_bordero.qrlb_qtdev.caption := FormatFloat('#,###,##0',iQtdDevedores);
+    qr_bordero.qrlb_qtd.caption := FormatFloat('#,###,##0',iQtdTitulos);
+    qr_bordero.qrlb_qtdev.caption := FormatFloat('#,###,##0',iQtdDevedores);
 
 
     qr_bordero.qrlb_gtxADM.Caption := FormatFloat('#,###,##0.00',gtxAdm);
